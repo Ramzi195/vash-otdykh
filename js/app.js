@@ -7,16 +7,16 @@
 (() => {
   "use strict";
 
-  /* ---------------------- Контакты магазина ---------------------- */
+  /* ---- Используем SHOP_CONFIG из js/config.js ---- */
   const SHOP = {
-    phone: "79214362525",
-    phoneDisplay: "+7 (921) 436-25-25",
-    address: "г. Грозный, ул. Петропавловское шоссе, 10А",
-    hours: "Ежедневно, 9:00–20:00",
-    instagram: "vashotdih",
+    phone:        SHOP_CONFIG.phone,
+    phoneDisplay: SHOP_CONFIG.phoneFmt,
+    address:      SHOP_CONFIG.addresses[0],
+    hours:        SHOP_CONFIG.hours,
+    instagram:    SHOP_CONFIG.instagram,
   };
-  const mapsUrl = "https://yandex.ru/maps/?text=" + encodeURIComponent(SHOP.address);
-  const waBase = (text) => `https://wa.me/${SHOP.phone}?text=${encodeURIComponent(text)}`;
+  const mapsUrl = "https://yandex.ru/maps/?text=" + encodeURIComponent(SHOP_CONFIG.addresses.join(", "));
+  const waBase  = (text) => `https://wa.me/${SHOP.phone}?text=${encodeURIComponent(text)}`;
 
   /* ---------------------- Состояние ---------------------- */
   const LS = { cart: "vashotdih_cart", favs: "vashotdih_favs" };
@@ -241,26 +241,79 @@
 
   /* ---------------------- О нас ---------------------- */
   function renderAbout() {
+    const addrLinks = SHOP_CONFIG.addresses
+      .map(a => `<a href="https://yandex.ru/maps/?text=${encodeURIComponent(a)}" target="_blank" rel="noopener">${a}</a>`)
+      .join("<br>");
+
     $("#aboutContacts").innerHTML = `
 <div class="contact-row">
   <div class="ic">${icon("map-pin", 18)}</div>
-  <div><div class="t">Адрес</div><div class="v"><a href="${mapsUrl}" target="_blank" rel="noopener">${SHOP.address}</a></div></div>
+  <div><div class="t">Адреса</div><div class="v">${addrLinks}</div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("clock", 18)}</div>
-  <div><div class="t">Часы работы</div><div class="v">${SHOP.hours}</div></div>
+  <div><div class="t">Часы работы</div><div class="v">${SHOP_CONFIG.hours}</div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("phone", 18)}</div>
-  <div><div class="t">Телефон</div><div class="v"><a href="tel:+${SHOP.phone}">${SHOP.phoneDisplay}</a></div></div>
+  <div><div class="t">Телефон / WhatsApp</div><div class="v">
+    <a href="tel:+${SHOP_CONFIG.phone}">${SHOP_CONFIG.phoneFmt}</a>
+    &nbsp;·&nbsp;
+    <a href="${SHOP_CONFIG.socials.whatsapp}?text=${encodeURIComponent(SHOP_CONFIG.whatsappMsg)}" target="_blank" rel="noopener">Написать в WhatsApp</a>
+  </div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("chat", 18)}</div>
-  <div><div class="t">WhatsApp</div><div class="v"><a href="${waBase("Здравствуйте! Хочу задать вопрос про товары Ваш отдых.")}" target="_blank" rel="noopener">Написать нам</a></div></div>
+  <div><div class="t">E-mail</div><div class="v"><a href="mailto:${SHOP_CONFIG.email}">${SHOP_CONFIG.email}</a></div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("bag", 18)}</div>
-  <div><div class="t">Instagram</div><div class="v"><a href="https://instagram.com/${SHOP.instagram}" target="_blank" rel="noopener">@${SHOP.instagram}</a></div></div>
+  <div><div class="t">Instagram</div><div class="v"><a href="${SHOP_CONFIG.socials.instagram}" target="_blank" rel="noopener">@${SHOP_CONFIG.instagram}</a></div></div>
+</div>
+<div class="contact-row">
+  <div class="ic">${icon("truck", 18)}</div>
+  <div><div class="t">Доставка</div><div class="v">${SHOP_CONFIG.delivery}</div></div>
+</div>`;
+  }
+
+  /* ---------------------- Сотрудничество ---------------------- */
+  function renderCollab() {
+    const el = $("#collabBody");
+    if (!el) return;
+    el.innerHTML = `
+<div class="collab-intro">
+  <p>Мы открыты для совместных проектов — будь то оптовые закупки, оформление мероприятий или партнёрство с другими магазинами. Пишите — отвечаем быстро.</p>
+</div>
+<div class="collab-cards">
+  <a href="${SHOP_CONFIG.socials.whatsapp}?text=${encodeURIComponent("Здравствуйте! Хочу обсудить сотрудничество с «Ваш отдых».")}" target="_blank" rel="noopener" class="collab-card collab-wa">
+    <div class="collab-card-ic">${icon("chat", 38)}</div>
+    <div class="collab-card-body">
+      <div class="collab-card-title">WhatsApp</div>
+      <div class="collab-card-sub">${SHOP_CONFIG.phoneFmt}</div>
+      <div class="collab-card-cta">Написать нам</div>
+    </div>
+  </a>
+  <a href="${SHOP_CONFIG.socials.instagram}" target="_blank" rel="noopener" class="collab-card collab-ig">
+    <div class="collab-card-ic">${icon("ig", 38)}</div>
+    <div class="collab-card-body">
+      <div class="collab-card-title">Instagram</div>
+      <div class="collab-card-sub">@${SHOP_CONFIG.instagram}</div>
+      <div class="collab-card-cta">Подписаться и написать</div>
+    </div>
+  </a>
+  <a href="mailto:${SHOP_CONFIG.email}" class="collab-card collab-mail">
+    <div class="collab-card-ic">${icon("mail", 38)}</div>
+    <div class="collab-card-body">
+      <div class="collab-card-title">E-mail</div>
+      <div class="collab-card-sub">${SHOP_CONFIG.email}</div>
+      <div class="collab-card-cta">Отправить письмо</div>
+    </div>
+  </a>
+</div>
+<div class="collab-facts">
+  <div class="collab-fact"><strong>${new Date().getFullYear() - SHOP_CONFIG.since}</strong><span>лет на рынке</span></div>
+  <div class="collab-fact"><strong>2</strong><span>магазина в Грозном</span></div>
+  <div class="collab-fact"><strong>∞</strong><span>доставка по России</span></div>
 </div>`;
   }
 
@@ -361,7 +414,7 @@
   }
 
   /* ---------------------- Маршрутизация ---------------------- */
-  const VIEWS = ["home", "catalog", "product", "fav", "cart", "about"];
+  const VIEWS = ["home", "catalog", "product", "fav", "cart", "about", "collab"];
   let _view = "home";
   const currentView = () => _view;
 
@@ -386,7 +439,8 @@
     else if (v === "product") renderProduct(param);
     else if (v === "fav") renderFav();
     else if (v === "cart") renderCart();
-    else if (v === "about") renderAbout();
+    else if (v === "about")  renderAbout();
+    else if (v === "collab") renderCollab();
 
     if (v !== "product") window.scrollTo({ top: 0, behavior: "auto" });
     closeMenu();
@@ -398,7 +452,8 @@
     else if (v === "product") renderProduct(param);
     else if (v === "fav") renderFav();
     else if (v === "cart") renderCart();
-    else if (v === "about") renderAbout();
+    else if (v === "about")  renderAbout();
+    else if (v === "collab") renderCollab();
   }
 
   /* ---------------------- Поиск ---------------------- */

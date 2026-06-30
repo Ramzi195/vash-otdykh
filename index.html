@@ -7,6 +7,7 @@
   <meta name="description" content="Магазин «Ваш отдых» в Грозном: мангалы и грили, садовая мебель, самовары, подарочные наборы для пикника, напитки и стейки." />
   <link rel="icon" href="images/logo-badge.jpg" type="image/jpeg" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/collab.css" />
 </head>
 <body>
 
@@ -31,6 +32,7 @@
       <nav class="nav-links" id="navLinks">
         <a class="nav-link" href="#home"    data-nav="home">Главная</a>
         <a class="nav-link" href="#catalog" data-nav="catalog">Каталог</a>
+        <a class="nav-link" href="#collab"  data-nav="collab">Сотрудничество</a>
         <a class="nav-link" href="#about"   data-nav="about">О нас</a>
       </nav>
 
@@ -75,6 +77,7 @@
     </button>
     <a href="#home"    data-nav="home">Главная</a>
     <a href="#catalog" data-nav="catalog">Каталог</a>
+    <a href="#collab"  data-nav="collab">Сотрудничество</a>
     <a href="#about"   data-nav="about">О нас</a>
     <a href="#fav"     data-nav="fav">Избранное</a>
     <a href="#cart"    data-nav="cart">Корзина</a>
@@ -216,16 +219,30 @@
         <div class="section-head"><div><h2>О магазине</h2></div></div>
         <div class="about-wrap">
           <div class="about-text">
-            <p><strong>«Ваш отдых»</strong> — это магазин для тех, кто ценит хороший отдых на природе и душевные посиделки с близкими. Мы находимся в Грозном и уже не первый год помогаем землякам собирать стол во дворе, на даче и в беседке — с мангалом, самоваром и всем, что нужно для настоящего застолья.</p>
-            <p>Мы тщательно выбираем то, что продаём: грили и мангалы, которые служат годами, садовую мебель, которая не боится солнца и дождя, самовары — от классических дровяных до больших турецких на несколько чайников, фирменные подарочные наборы для пикника и стейки из мраморной говядины, которые останется только положить на решётку.</p>
+            <p><strong>«Ваш отдых»</strong> — магазин для тех, кто ценит настоящий отдых на природе и душевные посиделки с близкими. Мы работаем с <strong>2013 года</strong> и за это время помогли тысячам семей по всей России собрать идеальный стол на природе.</p>
+            <p>В нашем ассортименте — мангалы и грили, которые служат десятилетиями, садовая мебель из ротанга, самовары от классических дровяных до больших турецких, фирменные подарочные наборы для пикника и стейки из мраморной говядины, которые останется только положить на решётку.</p>
             <h3>Почему выбирают нас</h3>
-            <p>Каждую позицию в каталоге мы проверяем лично — большая часть товаров уже не раз опробована нами и нашими клиентами на собственном опыте. Если сомневаетесь с выбором — позвоните или напишите в WhatsApp, подскажем, что лучше подойдёт именно для вашего случая.</p>
-            <p>Магазин работает офлайн — все товары можно посмотреть и забрать лично, а по городу мы готовы согласовать доставку.</p>
+            <p>Каждый товар мы проверяем лично. Если сомневаетесь с выбором — звоните или пишите в WhatsApp, подскажем лучший вариант под ваши задачи. <strong>Доставляем по всей России.</strong></p>
+            <p>Два магазина в Грозном — можно посмотреть и забрать лично в любой день с 9:00 до 19:00.</p>
+            <p style="margin-top:16px;font-weight:700;color:var(--green-2);font-size:18px;font-style:italic">"Ваш отдых — наша забота"</p>
           </div>
           <div class="contact-card">
             <div id="aboutContacts"></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Сотрудничество -->
+    <section class="view" id="view-collab">
+      <div class="container section">
+        <div class="section-head">
+          <div>
+            <h2>Сотрудничество</h2>
+            <div class="sub">Открыты для партнёрства и оптовых заказов</div>
+          </div>
+        </div>
+        <div id="collabBody"></div>
       </div>
     </section>
 
@@ -254,6 +271,7 @@
           <h5>Информация</h5>
           <ul>
             <li><a href="#about">О нас</a></li>
+            <li><a href="#collab">Сотрудничество</a></li>
             <li><a href="#about">Контакты</a></li>
           </ul>
         </div>
@@ -271,21 +289,21 @@
 
   <div class="toast-wrap" id="toastWrap"></div>
 
+  <script src="js/config.js"></script>
   <script src="js/products.js"></script>
   <script src="js/icons.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // Заполняем теги в hero и футере данными из SHOP (после загрузки app.js)
     document.addEventListener("DOMContentLoaded", () => {
       const addr = document.getElementById("tagAddr");
       const hrs  = document.getElementById("tagHours");
-      if (addr) addr.innerHTML = icon("map-pin", 14) + " г. Грозный, Петропавловское шоссе, 10А";
-      if (hrs)  hrs.innerHTML  = icon("clock", 14) + " Ежедневно, 9:00–20:00";
+      if (addr) addr.innerHTML = icon("map-pin", 14) + " Грозный — два магазина";
+      if (hrs)  hrs.innerHTML  = icon("clock", 14) + " " + SHOP_CONFIG.hours;
       const fc = document.getElementById("footContacts");
       if (fc) fc.innerHTML = `
-        <li><a href="tel:+79214362525">+7 (921) 436-25-25</a></li>
-        <li><a href="https://instagram.com/vashotdih" target="_blank" rel="noopener">@vashotdih</a></li>
-        <li>г. Грозный, Петропавловское шоссе, 10А</li>`;
+        <li><a href="tel:+${SHOP_CONFIG.phone}">${SHOP_CONFIG.phoneFmt}</a></li>
+        <li><a href="mailto:${SHOP_CONFIG.email}">${SHOP_CONFIG.email}</a></li>
+        <li><a href="${SHOP_CONFIG.socials.instagram}" target="_blank" rel="noopener">@${SHOP_CONFIG.instagram}</a></li>`;
     });
   </script>
 </body>

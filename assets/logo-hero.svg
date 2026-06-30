@@ -1,37 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 200">
-  <!-- Белая плашка-флаг (значок самовара), без фонового фото -->
-  <path d="M40 20 H150 L200 100 L150 180 H40 A20 20 0 0 1 20 160 V40 A20 20 0 0 1 40 20 Z" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 190">
+  <!-- Белая плашка (без синего фона) -->
+  <rect x="10" y="8" width="186" height="174" rx="14" fill="#FFFFFF"/>
 
-  <!-- Самовар -->
-  <g transform="translate(56,26) scale(0.95)" fill="#1C1C1E">
-    <rect x="34" y="-8" width="6" height="10" rx="2"/>
-    <path d="M18 2 h36 a4 4 0 0 1 4 4 v10 a4 4 0 0 1-4 4 H18 a4 4 0 0 1-4-4 V6 a4 4 0 0 1 4-4z"/>
-    <path d="M58 10 h8 a3 3 0 0 1 3 3 v2 a3 3 0 0 1-3 3 h-8 z"/>
-    <rect x="10" y="22" width="52" height="6" rx="2"/>
-    <circle cx="18" cy="34" r="2.6"/>
-    <circle cx="27" cy="34" r="2.6"/>
-    <circle cx="36" cy="34" r="2.6"/>
-    <circle cx="45" cy="34" r="2.6"/>
-    <circle cx="54" cy="34" r="2.6"/>
-    <path d="M8 40 h56 a4 4 0 0 1 4 4 v34 a4 4 0 0 1-4 4 H8 a4 4 0 0 1-4-4 V44 a4 4 0 0 1 4-4z"/>
-    <path d="M2 48 q-8 6 0 14" stroke="#1C1C1E" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <path d="M70 48 q8 6 0 14" stroke="#1C1C1E" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <rect x="28" y="82" width="16" height="6" rx="2"/>
-    <circle cx="36" cy="92" r="5"/>
-    <path d="M14 96 h48 l-6 14 H20 z"/>
-    <g transform="translate(46,92)">
-      <path d="M0 14 h26 l-3 8 a4 4 0 0 1-4 3 H7 a4 4 0 0 1-4-3 z"/>
-      <ellipse cx="13" cy="14" rx="13" ry="3"/>
-      <ellipse cx="13" cy="28" rx="16" ry="2.6" opacity=".5"/>
-    </g>
-    <path d="M40 88 q2 6 0 10" stroke="#1C1C1E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <!-- Самовар — чёрный силуэт -->
+  <g transform="translate(40,18) scale(0.93)" fill="#111111">
+    <!-- Крышечка-кнопка -->
+    <circle cx="65" cy="3" r="3.5"/>
+    <!-- Крышка чайника -->
+    <ellipse cx="65" cy="9" rx="17" ry="5.5"/>
+    <!-- Тело чайника -->
+    <path d="M47 10 h36 a5 5 0 0 1 5 5 v7 a5 5 0 0 1-5 5 H47 a5 5 0 0 1-5-5 v-7 a5 5 0 0 1 5-5z"/>
+    <!-- Ручка чайника (правая) -->
+    <path d="M88 13 q16 0 16 8 q0 9-16 9" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- Носик чайника (левый) -->
+    <path d="M42 15 q-14 1-13 8 q1 5 10 6" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- Шейка/коннектор -->
+    <rect x="57" y="27" width="16" height="10" rx="2"/>
+    <!-- Верхнее кольцо корпуса -->
+    <rect x="27" y="37" width="76" height="7" rx="2"/>
+    <!-- Тело самовара -->
+    <path d="M20 44 h90 a7 7 0 0 1 7 7 v38 a7 7 0 0 1-7 7 H20 a7 7 0 0 1-7-7 V51 a7 7 0 0 1 7-7z"/>
+    <!-- 5 кружочков на теле -->
+    <circle cx="34" cy="65" r="4.8"/>
+    <circle cx="49" cy="65" r="4.8"/>
+    <circle cx="65" cy="65" r="4.8"/>
+    <circle cx="81" cy="65" r="4.8"/>
+    <circle cx="96" cy="65" r="4.8"/>
+    <!-- Левая ручка -->
+    <path d="M13 54 q-18 7-18 16 q0 9 18 16" stroke="#111" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <!-- Правая ручка -->
+    <path d="M117 54 q18 7 18 16 q0 9-18 16" stroke="#111" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <!-- Нижнее кольцо -->
+    <rect x="27" y="96" width="76" height="7" rx="2"/>
+    <!-- Кран -->
+    <rect x="56" y="103" width="18" height="7" rx="2"/>
+    <rect x="59" y="109" width="12" height="7" rx="2"/>
+    <!-- Основание -->
+    <path d="M34 116 h62 l-7 18 H41 z"/>
+    <!-- Чашка (правая нижняя) -->
+    <path d="M85 132 h34 a3 3 0 0 1 3 3 v13 a3 3 0 0 1-3 3 H85 a3 3 0 0 1-3-3 v-13 a3 3 0 0 1 3-3z"/>
+    <!-- Ручка чашки -->
+    <path d="M119 136 q12 2 12 8 q0 6-12 8" stroke="#111" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <!-- Блюдце -->
+    <ellipse cx="102" cy="151" rx="24" ry="5.5"/>
+    <!-- Линия капли от крана к чашке -->
+    <path d="M65 110 q-4 16 12 22 q12 5 26 0" stroke="#111" stroke-width="2.8" fill="none" stroke-linecap="round"/>
   </g>
 
-  <!-- Текст: на прозрачном фоне вместо зелёных кустов -->
-  <text x="228" y="98" font-family="-apple-system, Segoe UI, Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="1" fill="#F0B429">ВАШ</text>
-  <text x="228" y="150" font-family="-apple-system, Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="2"
-        fill="#FFFFFF" stroke="#1C1C1E" stroke-width="1.4" paint-order="stroke fill">ОТДЫХ</text>
+  <!-- Текст: ВАШ (жёлтый) и ОТДЫХ (белый с тёмным контуром) -->
+  <text x="222" y="95"
+    font-family="-apple-system,'Segoe UI','Arial Black',Arial,sans-serif"
+    font-size="64" font-weight="800" fill="#F5C518">ВАШ</text>
+  <text x="222" y="154"
+    font-family="-apple-system,'Segoe UI','Arial Black',Arial,sans-serif"
+    font-size="46" font-weight="800"
+    fill="#FFFFFF" stroke="#1a1a1a" stroke-width="1.5" paint-order="stroke fill">ОТДЫХ</text>
 
-  <!-- Белая скобка-акцент справа -->
-  <path d="M480 34 h-16 M480 34 V166 M480 166 h-16" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Жёлтая скобка ] справа -->
+  <line x1="490" y1="34" x2="490" y2="156" stroke="#F5C518" stroke-width="8" stroke-linecap="round"/>
+  <line x1="490" y1="34" x2="508" y2="34"  stroke="#F5C518" stroke-width="8" stroke-linecap="round"/>
+  <line x1="490" y1="156" x2="508" y2="156" stroke="#F5C518" stroke-width="8" stroke-linecap="round"/>
 </svg>

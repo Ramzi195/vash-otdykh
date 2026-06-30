@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админ — Ваш отдых</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<!-- ════════════════ ЭКРАН ВХОДА ════════════════ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <img class="login-logo" src="assets/logo-hero.svg" alt="Ваш отдых" />
+    <h1>Панель управления</h1>
+    <p>Введите пароль для входа в админ-зону</p>
+    <div class="login-err" id="loginErr">Неверный пароль</div>
+    <input  class="a-input" id="loginPwd" type="password" placeholder="Пароль" autocomplete="current-password" />
+    <button class="a-btn block" id="loginBtn">Войти</button>
+    <p style="margin-top:14px;font-size:12px;color:#aeaeb2;">
+      Первый вход? Пароль: <strong>admin123</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════ ПРИЛОЖЕНИЕ ════════════════ -->
+<div id="adminApp">
+  <div class="a-layout">
+
+    <!-- ── Сайдбар ── -->
+    <aside class="a-sidebar">
+      <div class="a-sidebar-logo">
+        <img src="assets/logo-hero.svg" alt="logo" />
+        <div class="nm">Ваш отдых</div>
+        <div class="sub">Панель управления</div>
+      </div>
+
+      <nav class="a-nav" id="adminNav">
+        <div class="a-nav-item active" data-page="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+          </svg>
+          Дашборд
+        </div>
+        <div class="a-nav-item" data-page="products">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          Товары
+        </div>
+        <div class="a-nav-item" data-page="categories">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          Категории
+        </div>
+        <div class="a-nav-item" data-page="settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          Настройки
+        </div>
+        <div class="a-nav-item" data-page="export">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Экспорт
+        </div>
+        <div class="a-nav-item" data-page="password">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+          Пароль
+        </div>
+      </nav>
+
+      <div class="a-sidebar-foot">
+        <a href="index.html" target="_blank">← Открыть сайт</a><br/>
+        <button class="a-btn ghost sm" id="logoutBtn" style="margin-top:10px;width:100%;">Выйти</button>
+      </div>
+    </aside>
+
+    <!-- ── Контент ── -->
+    <main class="a-main" id="adminMain">
+
+      <!-- ДАШБОРД -->
+      <section id="page-dashboard" class="a-page">
+        <div class="a-page-head">
+          <h1>Дашборд</h1>
+        </div>
+        <div class="a-stats" id="dashStats"></div>
+        <div class="a-card">
+          <div style="padding:18px 20px;border-bottom:1px solid var(--a-line);font-weight:700;font-size:15px;">Последние добавленные товары</div>
+          <table class="a-table" id="dashRecent"><tbody></tbody></table>
+        </div>
+      </section>
+
+      <!-- ТОВАРЫ -->
+      <section id="page-products" class="a-page" style="display:none">
+        <div class="a-page-head">
+          <h1>Товары</h1>
+          <button class="a-btn" id="addProductBtn">+ Добавить товар</button>
+        </div>
+        <div class="a-card">
+          <div class="a-search">
+            <input id="prodSearch" type="text" placeholder="Поиск товара..." />
+            <select class="a-select" id="prodFilterCat" style="min-width:160px;"></select>
+          </div>
+          <table class="a-table" id="prodTable">
+            <thead>
+              <tr>
+                <th style="width:58px"></th>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Цена</th>
+                <th>Бейдж</th>
+                <th style="width:110px">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="prodTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- КАТЕГОРИИ -->
+      <section id="page-categories" class="a-page" style="display:none">
+        <div class="a-page-head">
+          <h1>Категории</h1>
+          <button class="a-btn" id="addCatBtn">+ Добавить</button>
+        </div>
+        <div class="a-card" id="catList"></div>
+      </section>
+
+      <!-- НАСТРОЙКИ -->
+      <section id="page-settings" class="a-page" style="display:none">
+        <div class="a-page-head">
+          <h1>Настройки магазина</h1>
+          <button class="a-btn" id="saveSettingsBtn">Сохранить</button>
+        </div>
+        <div class="a-settings-grid">
+          <div class="a-settings-section">
+            <h3>Основное</h3>
+            <div class="a-settings-body">
+              <div class="a-form-group">
+                <label class="a-label">Название магазина</label>
+                <input class="a-input" id="s-name" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Слоган</label>
+                <input class="a-input" id="s-motto" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Год основания</label>
+                <input class="a-input" id="s-since" type="number" style="margin-bottom:0"/>
+              </div>
+            </div>
+          </div>
+          <div class="a-settings-section">
+            <h3>Контакты</h3>
+            <div class="a-settings-body">
+              <div class="a-form-group">
+                <label class="a-label">Телефон (только цифры, без +)</label>
+                <input class="a-input" id="s-phone" placeholder="79288822666" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Телефон (отображаемый формат)</label>
+                <input class="a-input" id="s-phoneFmt" placeholder="+7 (928) 882-26-66" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Email</label>
+                <input class="a-input" id="s-email" type="email" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Instagram (только @ник, без @)</label>
+                <input class="a-input" id="s-instagram" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Часы работы</label>
+                <input class="a-input" id="s-hours" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Доставка</label>
+                <input class="a-input" id="s-delivery" style="margin-bottom:0"/>
+              </div>
+            </div>
+          </div>
+          <div class="a-settings-section">
+            <h3>Адреса</h3>
+            <div class="a-settings-body">
+              <div class="a-form-group">
+                <label class="a-label">Адрес 1</label>
+                <input class="a-input" id="s-addr0" style="margin-bottom:0"/>
+              </div>
+              <div class="a-form-group">
+                <label class="a-label">Адрес 2</label>
+                <input class="a-input" id="s-addr1" style="margin-bottom:0"/>
+              </div>
+            </div>
+          </div>
+          <div class="a-settings-section">
+            <h3>Сообщение WhatsApp</h3>
+            <div class="a-settings-body">
+              <div class="a-form-group">
+                <label class="a-label">Текст приветствия при заказе</label>
+                <textarea class="a-input" id="s-whatsappMsg" rows="3" style="margin-bottom:0"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ЭКСПОРТ -->
+      <section id="page-export" class="a-page" style="display:none">
+        <div class="a-page-head">
+          <h1>Экспорт и публикация</h1>
+        </div>
+        <div class="a-card">
+          <div class="a-export-wrap">
+            <p>После редактирования товаров и настроек нужно скачать обновлённые файлы и загрузить их на GitHub, чтобы изменения появились на сайте.</p>
+            <ol>
+              <li>Нажмите кнопку <strong>«Скачать products.js»</strong> — скачается файл с товарами</li>
+              <li>Нажмите кнопку <strong>«Скачать config.js»</strong> — скачается файл с настройками</li>
+              <li>Откройте папку сайта на компьютере (<code>ваш отдых/js/</code>)</li>
+              <li>Замените файлы <code>products.js</code> и <code>config.js</code> в папке <code>js/</code></li>
+              <li>Сделайте <code>git add . && git commit -m "update products" && git push</code></li>
+              <li>Через 1–2 минуты сайт обновится автоматически</li>
+            </ol>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <button class="a-btn" id="exportProdsBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Скачать products.js
+              </button>
+              <button class="a-btn blue" id="exportCfgBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Скачать config.js
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ПАРОЛЬ -->
+      <section id="page-password" class="a-page" style="display:none">
+        <div class="a-page-head">
+          <h1>Смена пароля</h1>
+        </div>
+        <div class="a-card" style="padding:24px;max-width:420px;">
+          <div class="a-form-group">
+            <label class="a-label">Текущий пароль</label>
+            <input class="a-input" id="pwdCurrent" type="password" style="margin-bottom:0"/>
+          </div>
+          <div class="a-form-group">
+            <label class="a-label">Новый пароль</label>
+            <input class="a-input" id="pwdNew" type="password" style="margin-bottom:0"/>
+            <span class="a-pwd-hint">Минимум 6 символов</span>
+          </div>
+          <div class="a-form-group">
+            <label class="a-label">Повторите новый пароль</label>
+            <input class="a-input" id="pwdRepeat" type="password" style="margin-bottom:0"/>
+          </div>
+          <div class="login-err" id="pwdErr" style="margin-top:10px;margin-bottom:0;"></div>
+          <button class="a-btn block" id="changePwdBtn" style="margin-top:18px;">Сменить пароль</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ════════ МОДАЛЬНОЕ ОКНО — ТОВАР ════════ -->
+<div class="a-overlay" id="prodModal">
+  <div class="a-modal">
+    <h2 id="prodModalTitle">Добавить товар</h2>
+
+    <div class="a-form-row">
+      <div class="a-form-group">
+        <label class="a-label">Название *</label>
+        <input class="a-input" id="pm-name" placeholder="Мангал с крышей…" style="margin-bottom:0"/>
+      </div>
+      <div class="a-form-group">
+        <label class="a-label">ID (латиницей, без пробелов) *</label>
+        <input class="a-input" id="pm-id" placeholder="grill-mangal-roof" style="margin-bottom:0"/>
+      </div>
+    </div>
+
+    <div class="a-form-row">
+      <div class="a-form-group">
+        <label class="a-label">Категория *</label>
+        <select class="a-select" id="pm-cat"></select>
+      </div>
+      <div class="a-form-group">
+        <label class="a-label">Бейдж</label>
+        <select class="a-select" id="pm-badge">
+          <option value="">Без бейджа</option>
+          <option value="hit">Хит</option>
+          <option value="new">Новинка</option>
+          <option value="sale">Скидка</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="a-form-row">
+      <div class="a-form-group">
+        <label class="a-label">Цена (₽) — оставьте пустым для «Узнать цену»</label>
+        <input class="a-input" id="pm-price" type="number" placeholder="59900" style="margin-bottom:0"/>
+      </div>
+      <div class="a-form-group">
+        <label class="a-label">Примечание к цене</label>
+        <input class="a-input" id="pm-priceNote" placeholder="за кг / от / узнать цену" style="margin-bottom:0"/>
+      </div>
+    </div>
+
+    <div class="a-form-row">
+      <div class="a-form-group">
+        <label class="a-label">Рейтинг (1–5)</label>
+        <input class="a-input" id="pm-rating" type="number" min="1" max="5" step="0.1" placeholder="4.8" style="margin-bottom:0"/>
+      </div>
+      <div class="a-form-group">
+        <label class="a-label">Файл фото (images/…)</label>
+        <input class="a-input" id="pm-img" placeholder="images/grill-mangal-roof.jpg" style="margin-bottom:0"/>
+      </div>
+    </div>
+
+    <div class="a-form-row one">
+      <div class="a-form-group">
+        <label class="a-label">Object-position (фокус фото)</label>
+        <input class="a-input" id="pm-pos" placeholder="center 48%" style="margin-bottom:0"/>
+      </div>
+    </div>
+
+    <div class="a-form-row one">
+      <div class="a-form-group">
+        <label class="a-label">Описание *</label>
+        <textarea class="a-input" id="pm-desc" rows="3" placeholder="Краткое описание товара…" style="margin-bottom:0"></textarea>
+      </div>
+    </div>
+
+    <div class="a-modal-foot">
+      <button class="a-btn ghost" id="prodModalClose">Отмена</button>
+      <button class="a-btn" id="prodModalSave">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ МОДАЛЬНОЕ ОКНО — КАТЕГОРИЯ ════════ -->
+<div class="a-overlay" id="catModal">
+  <div class="a-modal" style="max-width:420px;">
+    <h2 id="catModalTitle">Добавить категорию</h2>
+    <div class="a-form-group">
+      <label class="a-label">ID (латиницей, без пробелов) *</label>
+      <input class="a-input" id="cm-id" placeholder="grills" style="margin-bottom:0"/>
+    </div>
+    <div class="a-form-group">
+      <label class="a-label">Название (на русском) *</label>
+      <input class="a-input" id="cm-name" placeholder="Мангалы и грили" style="margin-bottom:0"/>
+    </div>
+    <div class="a-modal-foot">
+      <button class="a-btn ghost" id="catModalClose">Отмена</button>
+      <button class="a-btn" id="catModalSave">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ МОДАЛЬНОЕ ОКНО — ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ ════════ -->
+<div class="a-overlay" id="confirmModal">
+  <div class="a-modal" style="max-width:380px;">
+    <h2>Подтвердите удаление</h2>
+    <p id="confirmText" style="font-size:15px;color:var(--a-sub);margin-bottom:22px;line-height:1.5;"></p>
+    <div class="a-modal-foot">
+      <button class="a-btn ghost" id="confirmCancel">Отмена</button>
+      <button class="a-btn red" id="confirmOk">Удалить</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ТОСТЫ ════════ -->
+<div class="a-toast-wrap" id="toastWrap"></div>
+
+<!-- ════════ СКРИПТЫ ════════ -->
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

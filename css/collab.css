@@ -1,0 +1,128 @@
+/* ============================================================
+   Ваш отдых — раздел «Сотрудничество»
+   ============================================================ */
+
+.collab-intro {
+  max-width: 680px;
+  font-size: 17px;
+  color: var(--label-2);
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+/* --- Карточки соцсетей --- */
+.collab-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-bottom: 44px;
+}
+
+.collab-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 26px 24px;
+  border-radius: 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+  position: relative;
+  overflow: hidden;
+}
+.collab-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,.08);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.collab-card:hover { transform: translateY(-5px); }
+.collab-card:hover::after { opacity: 1; }
+.collab-card:active { transform: scale(.97); }
+
+/* WhatsApp */
+.collab-wa {
+  background: linear-gradient(135deg, #25A560 0%, #128C4C 100%);
+  box-shadow: 0 8px 28px rgba(37,165,96,.35);
+}
+.collab-wa:hover { box-shadow: 0 14px 40px rgba(37,165,96,.48); }
+
+/* Instagram */
+.collab-ig {
+  background: linear-gradient(135deg, #F77737 0%, #C13584 50%, #833AB4 100%);
+  box-shadow: 0 8px 28px rgba(193,53,132,.35);
+}
+.collab-ig:hover { box-shadow: 0 14px 40px rgba(193,53,132,.48); }
+
+/* Email */
+.collab-mail {
+  background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+  box-shadow: 0 8px 28px rgba(27,94,32,.32);
+}
+.collab-mail:hover { box-shadow: 0 14px 40px rgba(27,94,32,.46); }
+
+.collab-card-ic {
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,.2);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.collab-card-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.collab-card-sub {
+  font-size: 13px;
+  opacity: .82;
+  margin-top: 2px;
+}
+.collab-card-cta {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  background: rgba(255,255,255,.22);
+  padding: 5px 13px;
+  border-radius: 980px;
+}
+
+/* --- Факты --- */
+.collab-facts {
+  display: flex;
+  gap: 0;
+  background: var(--bg-2);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.collab-fact {
+  flex: 1;
+  text-align: center;
+  padding: 28px 16px;
+  border-right: 1px solid var(--sep);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.collab-fact:last-child { border-right: none; }
+.collab-fact strong {
+  font-size: clamp(30px, 5vw, 48px);
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -.02em;
+}
+.collab-fact span {
+  font-size: 13px;
+  color: var(--label-2);
+  font-weight: 500;
+}
+
+@media (max-width: 520px) {
+  .collab-facts { flex-direction: column; }
+  .collab-fact { border-right: none; border-bottom: 1px solid var(--sep); }
+  .collab-fact:last-child { border-bottom: none; }
+}

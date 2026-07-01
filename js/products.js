@@ -8,16 +8,16 @@
    ========================================================================== */
 
 const CATEGORIES = [
-  { id: "all",       name: "Все товары" },
-  { id: "grills",    name: "Мангалы и грили" },
-  { id: "furniture", name: "Садовая мебель" },
-  { id: "samovars",  name: "Самовары" },
-  { id: "kazany",    name: "Казаны" },
-  { id: "castiron",  name: "Чугунная посуда" },
-  { id: "knives",    name: "Ножи и клинки" },
-  { id: "giftsets",  name: "Наборы для пикника" },
-  { id: "drinks",    name: "Напитки" },
-  { id: "steaks",    name: "Стейки" },
+  { id: "all",       name: "Все товары",        nameEn: "All products" },
+  { id: "grills",    name: "Мангалы и грили",   nameEn: "Grills & barbecues" },
+  { id: "furniture", name: "Садовая мебель",    nameEn: "Garden furniture" },
+  { id: "samovars",  name: "Самовары",          nameEn: "Samovars" },
+  { id: "kazany",    name: "Казаны",            nameEn: "Cauldrons (kazans)" },
+  { id: "castiron",  name: "Чугунная посуда",   nameEn: "Cast-iron cookware" },
+  { id: "knives",    name: "Ножи и клинки",     nameEn: "Knives & blades" },
+  { id: "giftsets",  name: "Наборы для пикника", nameEn: "Picnic gift sets" },
+  { id: "drinks",    name: "Напитки",           nameEn: "Drinks" },
+  { id: "steaks",    name: "Стейки",            nameEn: "Steaks" },
 ];
 
 const PRODUCTS = [

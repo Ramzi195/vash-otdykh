@@ -36,20 +36,38 @@
   const $$ = (s, ctx = document) => [...ctx.querySelectorAll(s)];
   const money = (n) => n.toLocaleString("ru-RU") + " ₽";
   const byId = (id) => PRODUCTS.find((p) => p.id === id);
-  const catName = (id) => (CATEGORIES.find((c) => c.id === id) || {}).name || id;
+  const catName = (id) => {
+    const c = CATEGORIES.find((c) => c.id === id);
+    if (!c) return id;
+    return getLang() === "en" && c.nameEn ? c.nameEn : c.name;
+  };
+
+  /* Перевод подписи к цене (priceNote) на текущий язык */
+  function noteText(p) {
+    const n = p.priceNote;
+    if (!n) return t("price.ask");
+    if (getLang() === "en") {
+      const map = {
+        "узнать цену": t("price.ask"),
+        "цена за кг — уточняйте": "price per kg — on request",
+      };
+      return map[n.toLowerCase()] || n;
+    }
+    return n;
+  }
 
   function priceHTML(p, big = false) {
     if (p.price == null) {
-      return `<span class="${big ? "now" : "now"}" style="font-size:${big ? "22px" : "16px"}">${p.priceNote || "Узнать цену"}</span>`;
+      return `<span class="now" style="font-size:${big ? "22px" : "16px"}">${noteText(p)}</span>`;
     }
-    return `<span class="now">${money(p.price)}</span>${p.priceNote ? `<span class="note">${p.priceNote}</span>` : ""}`;
+    return `<span class="now">${money(p.price)}</span>${p.priceNote ? `<span class="note">${noteText(p)}</span>` : ""}`;
   }
 
   /* ---------------------- Карточка товара ---------------------- */
   function cardHTML(p) {
     const fav = state.favs.includes(p.id);
     const badgeHTML = p.badge ? `<span class="chip ${p.badge}">${
-      p.badge === "hit" ? "Хит" : p.badge === "new" ? "Новинка" : "Скидка"
+      p.badge === "hit" ? t("badge.hit") : p.badge === "new" ? t("badge.new") : t("badge.sale")
     }</span>` : "";
     const favInner = fav ? icon("heart-fill", 16) : icon("heart", 16);
     const askMode = p.price == null;
@@ -59,12 +77,12 @@
   <div class="card-badges">${badgeHTML}</div>
   <button class="fav-btn ${fav ? "on" : ""}" data-fav="${p.id}" aria-label="В избранное">${favInner}</button>
   <div class="card-media" data-open="${p.id}">
-    <img src="${p.img}" alt="${p.name}" style="object-position:${p.pos || "center"}" loading="lazy" />
+    <img src="${p.img}" alt="${tp(p, "name")}" style="object-position:${p.pos || "center"}" loading="lazy" />
   </div>
   <div class="card-body">
     <div class="card-cat">${catName(p.cat)}</div>
-    <div class="card-title" data-open="${p.id}">${p.name}</div>
-    <div class="card-desc">${p.desc}</div>
+    <div class="card-title" data-open="${p.id}">${tp(p, "name")}</div>
+    <div class="card-desc">${tp(p, "desc")}</div>
     <div class="card-rating">${icon("star-fill", 13)}<span>${p.rating.toFixed(1)}</span></div>
     <div class="card-foot">
       <div class="price">${priceHTML(p)}</div>
@@ -83,7 +101,7 @@
     $("#catStrip").innerHTML = CATEGORIES.filter((c) => c.id !== "all").map((c) => `
       <button class="cat-tile" data-cat="${c.id}">
         <div class="ic">${icon(CAT_ICON_MAP[c.id] || "bag", 20)}</div>
-        <div class="nm">${c.name}</div>
+        <div class="nm">${catName(c.id)}</div>
       </button>`).join("");
 
     const BENS = [
@@ -103,7 +121,7 @@
   /* ---------------------- Каталог ---------------------- */
   function renderCatalogBar() {
     $("#filterPills").innerHTML = CATEGORIES.map((c) => `
-      <button class="pill ${state.filter === c.id ? "active" : ""}" data-cat="${c.id}">${c.name}</button>`).join("");
+      <button class="pill ${state.filter === c.id ? "active" : ""}" data-cat="${c.id}">${catName(c.id)}</button>`).join("");
     const sel = $("#sortSelect");
     if (sel) sel.value = state.sort;
   }
@@ -112,7 +130,7 @@
     let list = PRODUCTS.filter((p) => state.filter === "all" || p.cat === state.filter);
     list = sortList(list, state.sort);
     const cnt = $("#catalogCount");
-    if (cnt) cnt.textContent = "Найдено товаров: " + list.length;
+    if (cnt) cnt.textContent = t("catalog.found") + list.length;
     renderGrid($("#gridCatalog"), list);
   }
   function sortList(list, sort) {
@@ -132,33 +150,30 @@
     const inCart = !!state.cart[p.id];
     const askMode = p.price == null;
 
-    const feats = [
-      "Проверено лично перед продажей",
-      "Можно посмотреть и забрать в магазине в Грозном",
-      "Поможем с выбором по телефону или в WhatsApp",
-    ];
+    const feats = [t("pd.feat1"), t("pd.feat2"), t("pd.feat3")];
+    const pName = tp(p, "name");
 
     $("#pdContent").innerHTML = `
-<div class="pd-media"><img src="${p.img}" alt="${p.name}" style="object-position:${p.pos || "center"}" /></div>
+<div class="pd-media"><img src="${p.img}" alt="${pName}" style="object-position:${p.pos || "center"}" /></div>
 <div class="pd-info">
   <div class="crumbs">
     <a class="link-arrow" data-nav="catalog" style="font-size:13px">${icon("chevron-left", 14)} ${catName(p.cat)}</a>
   </div>
-  <h1>${p.name}</h1>
-  <p class="lead">${p.desc}</p>
+  <h1>${pName}</h1>
+  <p class="lead">${tp(p, "desc")}</p>
   <div class="pd-price">${priceHTML(p, true)}</div>
   <div class="pd-actions">
     ${askMode
-      ? `<a class="btn ember lg" href="${waBase(`Здравствуйте! Хочу узнать цену на «${p.name}» (Ваш отдых).`)}" target="_blank" rel="noopener">${icon("chat", 18)} Узнать цену в WhatsApp</a>`
-      : `<button class="btn lg" data-add="${p.id}">${icon("bag", 18)} ${inCart ? "В корзине ✓" : "В корзину"}</button>
-         <a class="btn ember lg" href="${waBase(`Здравствуйте! Хочу заказать «${p.name}» — ${money(p.price)} (Ваш отдых).`)}" target="_blank" rel="noopener">${icon("chat", 18)} Заказать в WhatsApp</a>`}
+      ? `<a class="btn ember lg" href="${waBase(`${t("wa.orderHello").replace(":", "")} ${pName}`)}" target="_blank" rel="noopener">${icon("chat", 18)} ${t("pd.askWa")}</a>`
+      : `<button class="btn lg" data-add="${p.id}">${icon("bag", 18)} ${inCart ? t("pd.inCart") : t("pd.toCart")}</button>
+         <a class="btn ember lg" href="${waBase(`${t("wa.orderHello").replace(":", "")} ${pName} — ${money(p.price)}`)}" target="_blank" rel="noopener">${icon("chat", 18)} ${t("pd.orderWa")}</a>`}
     <button class="btn outline lg" data-fav="${p.id}" style="padding:14px 18px">${fav ? icon("heart-fill", 18) : icon("heart", 18)}</button>
   </div>
   <div class="pd-feats">
     ${feats.map((f) => `<div class="pd-feat"><span class="dot">${icon("check", 16)}</span> ${f}</div>`).join("")}
   </div>
   <div style="margin-top:20px;display:flex;align-items:center;gap:6px;color:var(--label-2)">
-    ${icon("star-fill", 13)} <span style="font-size:14px">${p.rating.toFixed(1)} рейтинг товара</span>
+    ${icon("star-fill", 13)} <span style="font-size:14px">${p.rating.toFixed(1)} ${t("pd.rating")}</span>
   </div>
 </div>`;
 
@@ -173,7 +188,7 @@
     const list = state.favs.map(byId).filter(Boolean);
     const body = $("#favBody");
     if (!list.length) {
-      body.innerHTML = emptyHTML(icon("heart", 32), "В избранном пусто", "Нажимайте на сердечко у товаров, чтобы сохранить их здесь", "Перейти в каталог", "catalog");
+      body.innerHTML = emptyHTML(icon("heart", 32), t("fav.emptyT"), t("fav.emptyP"), t("fav.emptyBtn"), "catalog");
       return;
     }
     body.innerHTML = `<div class="grid">${list.map(cardHTML).join("")}</div>`;
@@ -189,7 +204,7 @@
     const entries = cartEntries();
     const body = $("#cartBody");
     if (!entries.length) {
-      body.innerHTML = emptyHTML(icon("bag", 32), "Корзина пуста", "Добавьте товары, чтобы оформить заявку на заказ", "Перейти в каталог", "catalog");
+      body.innerHTML = emptyHTML(icon("bag", 32), t("cart.emptyT"), t("cart.emptyP"), t("cart.emptyBtn"), "catalog");
       return;
     }
     const total = cartTotal();
@@ -199,10 +214,10 @@
   <div>
     ${entries.map(({ p, qty }) => `
 <div class="cart-item">
-  <div class="thumb"><img src="${p.img}" alt="${p.name}" style="object-position:${p.pos || "center"}" /></div>
+  <div class="thumb"><img src="${p.img}" alt="${tp(p, "name")}" style="object-position:${p.pos || "center"}" /></div>
   <div class="meta">
-    <div class="t" data-open="${p.id}">${p.name}</div>
-    <div class="c">${catName(p.cat)} · ${p.price != null ? money(p.price) : "цена уточняется"}</div>
+    <div class="t" data-open="${p.id}">${tp(p, "name")}</div>
+    <div class="c">${catName(p.cat)} · ${p.price != null ? money(p.price) : t("cart.priceTBD")}</div>
     <div class="qty">
       <button data-dec="${p.id}">${icon("minus", 14)}</button>
       <span>${qty}</span>
@@ -211,29 +226,29 @@
   </div>
   <div class="right">
     <div class="sum">${p.price != null ? money(p.price * qty) : "—"}</div>
-    <div class="rm" data-rm="${p.id}">${icon("trash", 13)} Удалить</div>
+    <div class="rm" data-rm="${p.id}">${icon("trash", 13)} ${t("cart.remove")}</div>
   </div>
 </div>`).join("")}
     <p style="margin-top:16px">
-      <a class="link-arrow" data-clear="1" style="cursor:pointer;color:var(--ember-2)">${icon("trash", 15)} Очистить корзину</a>
+      <a class="link-arrow" data-clear="1" style="cursor:pointer;color:var(--ember-2)">${icon("trash", 15)} ${t("cart.clear")}</a>
     </p>
   </div>
 
   <aside class="summary">
-    <h3>Оформление заявки</h3>
-    <div class="row"><span>Товаров</span><span>${cartQty()} шт.</span></div>
-    <div class="row total"><span>Итого</span><span>${total > 0 ? money(total) : "уточняется"}</span></div>
+    <h3>${t("cart.checkoutTitle")}</h3>
+    <div class="row"><span>${t("cart.count")}</span><span>${cartQty()} ${t("cart.pcs")}</span></div>
+    <div class="row total"><span>${t("cart.total")}</span><span>${total > 0 ? money(total) : t("cart.tbd")}</span></div>
     <div class="order-form">
-      <label for="ofName">Ваше имя</label>
-      <input type="text" id="ofName" placeholder="Как к вам обращаться" />
-      <label for="ofPhone">Телефон</label>
+      <label for="ofName">${t("cart.name")}</label>
+      <input type="text" id="ofName" placeholder="${t("cart.namePh")}" />
+      <label for="ofPhone">${t("cart.phone")}</label>
       <input type="tel" id="ofPhone" placeholder="+7 (___) ___-__-__" />
-      <label for="ofComment">Комментарий (необязательно)</label>
-      <textarea id="ofComment" placeholder="Например: удобное время для звонка"></textarea>
+      <label for="ofComment">${t("cart.comment")}</label>
+      <textarea id="ofComment" placeholder="${t("cart.commentPh")}"></textarea>
     </div>
-    <button class="btn ember block lg" style="margin-top:14px" data-checkout="1">${icon("chat", 18)} Отправить заявку в WhatsApp</button>
+    <button class="btn ember block lg" style="margin-top:14px" data-checkout="1">${icon("chat", 18)} ${t("cart.submit")}</button>
     <p style="font-size:12px;color:var(--label-2);margin-top:10px;text-align:center">
-      Нажимая кнопку, вы перейдёте в WhatsApp с готовым сообщением о заказе
+      ${t("cart.disclaimer")}
     </p>
   </aside>
 </div>`;
@@ -248,23 +263,23 @@
     $("#aboutContacts").innerHTML = `
 <div class="contact-row">
   <div class="ic">${icon("map-pin", 18)}</div>
-  <div><div class="t">Адреса</div><div class="v">${addrLinks}</div></div>
+  <div><div class="t">${t("about.addresses")}</div><div class="v">${addrLinks}</div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("clock", 18)}</div>
-  <div><div class="t">Часы работы</div><div class="v">${SHOP_CONFIG.hours}</div></div>
+  <div><div class="t">${t("about.hoursLbl")}</div><div class="v">${t("info.hours")}</div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("phone", 18)}</div>
-  <div><div class="t">Телефон / WhatsApp</div><div class="v">
+  <div><div class="t">${t("about.phoneLbl")}</div><div class="v">
     <a href="tel:+${SHOP_CONFIG.phone}">${SHOP_CONFIG.phoneFmt}</a>
     &nbsp;·&nbsp;
-    <a href="${SHOP_CONFIG.socials.whatsapp}?text=${encodeURIComponent(SHOP_CONFIG.whatsappMsg)}" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    <a href="${SHOP_CONFIG.socials.whatsapp}?text=${encodeURIComponent(SHOP_CONFIG.whatsappMsg)}" target="_blank" rel="noopener">${t("about.waLink")}</a>
   </div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("chat", 18)}</div>
-  <div><div class="t">E-mail</div><div class="v"><a href="mailto:${SHOP_CONFIG.email}">${SHOP_CONFIG.email}</a></div></div>
+  <div><div class="t">${t("about.emailLbl")}</div><div class="v"><a href="mailto:${SHOP_CONFIG.email}">${SHOP_CONFIG.email}</a></div></div>
 </div>
 <div class="contact-row">
   <div class="ic">${icon("bag", 18)}</div>
@@ -272,7 +287,7 @@
 </div>
 <div class="contact-row">
   <div class="ic">${icon("truck", 18)}</div>
-  <div><div class="t">Доставка</div><div class="v">${SHOP_CONFIG.delivery}</div></div>
+  <div><div class="t">${t("about.deliveryLbl")}</div><div class="v">${t("info.delivery")}</div></div>
 </div>`;
   }
 
@@ -282,7 +297,7 @@
     if (!el) return;
     el.innerHTML = `
 <div class="collab-intro">
-  <p>Мы открыты для совместных проектов — будь то оптовые закупки, оформление мероприятий или партнёрство с другими магазинами. Пишите — отвечаем быстро.</p>
+  <p>${t("collab.intro")}</p>
 </div>
 <div class="collab-cards">
   <a href="${SHOP_CONFIG.socials.whatsapp}?text=${encodeURIComponent("Здравствуйте! Хочу обсудить сотрудничество с «Ваш отдых».")}" target="_blank" rel="noopener" class="collab-card collab-wa">
@@ -290,7 +305,7 @@
     <div class="collab-card-body">
       <div class="collab-card-title">WhatsApp</div>
       <div class="collab-card-sub">${SHOP_CONFIG.phoneFmt}</div>
-      <div class="collab-card-cta">Написать нам</div>
+      <div class="collab-card-cta">${t("collab.waCta")}</div>
     </div>
   </a>
   <a href="${SHOP_CONFIG.socials.instagram}" target="_blank" rel="noopener" class="collab-card collab-ig">
@@ -298,7 +313,7 @@
     <div class="collab-card-body">
       <div class="collab-card-title">Instagram</div>
       <div class="collab-card-sub">@${SHOP_CONFIG.instagram}</div>
-      <div class="collab-card-cta">Подписаться и написать</div>
+      <div class="collab-card-cta">${t("collab.igCta")}</div>
     </div>
   </a>
   <a href="mailto:${SHOP_CONFIG.email}" class="collab-card collab-mail">
@@ -306,14 +321,27 @@
     <div class="collab-card-body">
       <div class="collab-card-title">E-mail</div>
       <div class="collab-card-sub">${SHOP_CONFIG.email}</div>
-      <div class="collab-card-cta">Отправить письмо</div>
+      <div class="collab-card-cta">${t("collab.mailCta")}</div>
     </div>
   </a>
 </div>
 <div class="collab-facts">
-  <div class="collab-fact"><strong>${new Date().getFullYear() - SHOP_CONFIG.since}</strong><span>лет на рынке</span></div>
-  <div class="collab-fact"><strong>2</strong><span>магазина в Грозном</span></div>
-  <div class="collab-fact"><strong>∞</strong><span>доставка по России</span></div>
+  <div class="collab-fact">
+    <div class="cf-ic">${icon("shield-check", 22)}</div>
+    <div class="cf-tx"><strong>${t("collab.f1t")}</strong><span>${t("collab.f1s")}</span></div>
+  </div>
+  <div class="collab-fact">
+    <div class="cf-ic">${icon("map-pin", 22)}</div>
+    <div class="cf-tx"><strong>${t("collab.f2t")}</strong><span>${t("collab.f2s")}</span></div>
+  </div>
+  <div class="collab-fact">
+    <div class="cf-ic">${icon("truck", 22)}</div>
+    <div class="cf-tx"><strong>${t("collab.f3t")}</strong><span>${t("collab.f3s")}</span></div>
+  </div>
+  <div class="collab-fact">
+    <div class="cf-ic">${icon("bag", 22)}</div>
+    <div class="cf-tx"><strong>${t("collab.f4t")}</strong><span>${t("collab.f4s")}</span></div>
+  </div>
 </div>`;
   }
 
@@ -326,7 +354,7 @@
   function addToCart(id) {
     state.cart[id] = (state.cart[id] || 0) + 1;
     save(); updateBadges(); bumpCartBtn();
-    toast("Добавлено в корзину", "bag");
+    toast(t("toast.addCart"), "bag");
     const v = currentView();
     if (v === "cart") renderCart();
     if (v === "product") renderProduct(id);
@@ -337,13 +365,13 @@
     if (state.cart[id] <= 0) delete state.cart[id];
     save(); updateBadges(); renderCart();
   }
-  function rmCart(id)  { delete state.cart[id]; save(); updateBadges(); toast("Удалено из корзины", "trash"); renderCart(); }
-  function clearCart()  { state.cart = {}; save(); updateBadges(); toast("Корзина очищена", "trash"); renderCart(); }
+  function rmCart(id)  { delete state.cart[id]; save(); updateBadges(); toast(t("toast.rmCart"), "trash"); renderCart(); }
+  function clearCart()  { state.cart = {}; save(); updateBadges(); toast(t("toast.clearCart"), "trash"); renderCart(); }
 
   function toggleFav(id) {
     const i = state.favs.indexOf(id);
-    if (i >= 0) { state.favs.splice(i, 1); toast("Убрано из избранного", "heart"); }
-    else        { state.favs.push(id);     toast("Добавлено в избранное", "heart-fill"); }
+    if (i >= 0) { state.favs.splice(i, 1); toast(t("toast.rmFav"), "heart"); }
+    else        { state.favs.push(id);     toast(t("toast.addFav"), "heart-fill"); }
     save(); updateBadges(); refreshCurrent();
   }
 
@@ -355,34 +383,34 @@
     const comment = $("#ofComment").value.trim();
 
     if (!name || !phone) {
-      toast("Укажите имя и телефон", "chat");
+      toast(t("toast.needNamePhone"), "chat");
       return;
     }
 
-    let lines = ["Здравствуйте! Хочу сделать заказ в «Ваш отдых»:", ""];
+    let lines = [t("wa.orderHello"), ""];
     entries.forEach(({ p, qty }, i) => {
-      const priceStr = p.price != null ? money(p.price * qty) : "цена уточняется";
-      lines.push(`${i + 1}. ${p.name} — ${qty} шт. (${priceStr})`);
+      const priceStr = p.price != null ? money(p.price * qty) : t("cart.priceTBD");
+      lines.push(`${i + 1}. ${tp(p, "name")} — ${qty} ${t("cart.pcs")} (${priceStr})`);
     });
     const total = cartTotal();
     lines.push("");
-    lines.push(`Итого: ${total > 0 ? money(total) : "уточняется"}`);
+    lines.push(`${t("wa.total")} ${total > 0 ? money(total) : t("cart.tbd")}`);
     lines.push("");
-    lines.push(`Имя: ${name}`);
-    lines.push(`Телефон: ${phone}`);
-    if (comment) lines.push(`Комментарий: ${comment}`);
+    lines.push(`${t("wa.name")} ${name}`);
+    lines.push(`${t("wa.phone")} ${phone}`);
+    if (comment) lines.push(`${t("wa.comment")} ${comment}`);
 
     window.open(waBase(lines.join("\n")), "_blank", "noopener");
 
     state.cart = {}; save(); updateBadges();
-    toast("Заявка сформирована — продолжите в WhatsApp", "check");
+    toast(t("toast.orderReady"), "check");
     renderCart();
   }
 
   function askPrice(id) {
     const p = byId(id);
     if (!p) return;
-    window.open(waBase(`Здравствуйте! Хочу узнать цену на «${p.name}» (Ваш отдых).`), "_blank", "noopener");
+    window.open(waBase(`${t("wa.orderHello").replace(":", "")} ${tp(p, "name")}`), "_blank", "noopener");
   }
 
   /* ---------------------- Бейджи ---------------------- */
@@ -462,14 +490,18 @@
   function renderSearch(q) {
     q = q.trim().toLowerCase();
     const res = $("#searchResults");
-    if (!q) { res.innerHTML = `<p style="color:var(--label-2);padding:14px 4px;font-size:14px">Начните вводить название товара</p>`; return; }
-    const list = PRODUCTS.filter((p) => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || catName(p.cat).toLowerCase().includes(q));
-    if (!list.length) { res.innerHTML = `<p style="color:var(--label-2);padding:14px 4px;font-size:14px">Ничего не найдено</p>`; return; }
+    if (!q) { res.innerHTML = `<p style="color:var(--label-2);padding:14px 4px;font-size:14px">${t("search.start")}</p>`; return; }
+    const list = PRODUCTS.filter((p) =>
+      p.name.toLowerCase().includes(q) ||
+      (p.nameEn && p.nameEn.toLowerCase().includes(q)) ||
+      p.desc.toLowerCase().includes(q) ||
+      catName(p.cat).toLowerCase().includes(q));
+    if (!list.length) { res.innerHTML = `<p style="color:var(--label-2);padding:14px 4px;font-size:14px">${t("search.none")}</p>`; return; }
     res.innerHTML = list.map((p) => `
 <div class="search-row" data-open="${p.id}">
   <div class="thumb"><img src="${p.img}" alt="" style="object-position:${p.pos || "center"}" /></div>
-  <div><div class="nm">${p.name}</div><div class="cat">${catName(p.cat)}</div></div>
-  <span class="pr">${p.price != null ? money(p.price) : "Узнать цену"}</span>
+  <div><div class="nm">${tp(p, "name")}</div><div class="cat">${catName(p.cat)}</div></div>
+  <span class="pr">${p.price != null ? money(p.price) : t("price.ask")}</span>
 </div>`).join("");
   }
 
@@ -566,7 +598,56 @@
     $("#favBtn").addEventListener("click",  () => go("fav"));
     $("#burgerBtn").addEventListener("click", openMenu);
     $("#mmenuClose").addEventListener("click", closeMenu);
+    $("#langBtn").addEventListener("click", toggleLang);
+    $("#themeBtn").addEventListener("click", toggleTheme);
     window.addEventListener("hashchange", route);
+  }
+
+  /* ---------------------- Тема (светлая/тёмная) ---------------------- */
+  const SUN_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="2.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.5" y2="12"/><line x1="5.2" y1="5.2" x2="7" y2="7"/><line x1="17" y1="17" x2="18.8" y2="18.8"/><line x1="18.8" y1="5.2" x2="17" y2="7"/><line x1="7" y1="17" x2="5.2" y2="18.8"/></g></svg>`;
+  const MOON_ICON = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 14.5A8 8 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+
+  function applyTheme(theme) {
+    const th = theme === "dark" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", th);
+    localStorage.setItem("vo_theme", th);
+    const b = $("#themeBtn");
+    if (b) b.innerHTML = th === "dark" ? SUN_ICON : MOON_ICON;
+  }
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyTheme(cur === "dark" ? "light" : "dark");
+  }
+
+  /* ---------------------- Язык (RU/EN) ---------------------- */
+  function updateLangBtn() {
+    const tag = $("#langTag");
+    if (tag) tag.textContent = getLang() === "en" ? "EN" : "RU";
+  }
+  function renderHeaderBits() {
+    const addr = $("#tagAddr"), hrs = $("#tagHours");
+    if (addr) addr.innerHTML = icon("map-pin", 14) + " " + t("hero.tagAddr");
+    if (hrs)  hrs.innerHTML  = icon("clock", 14) + " " + t("info.hours");
+    const fc = $("#footContacts");
+    if (fc) fc.innerHTML = `
+      <li><a href="tel:+${SHOP_CONFIG.phone}">${SHOP_CONFIG.phoneFmt}</a></li>
+      <li><a href="mailto:${SHOP_CONFIG.email}">${SHOP_CONFIG.email}</a></li>
+      <li><a href="${SHOP_CONFIG.socials.instagram}" target="_blank" rel="noopener">@${SHOP_CONFIG.instagram}</a></li>`;
+    document.title = getLang() === "en"
+      ? "Vash Otdykh — grills, kazans, knives, samovars & garden furniture | Grozny"
+      : "Ваш отдых — мангалы, казаны, ножи, самовары и садовая мебель | Грозный";
+  }
+  function applyLang() {
+    applyStaticI18n(document);
+    updateLangBtn();
+    renderHeaderBits();
+    const sel = $("#sortSelect");
+    if (sel) sel.value = state.sort;
+    refreshCurrent();
+  }
+  function toggleLang() {
+    setLang(getLang() === "en" ? "ru" : "en");
+    applyLang();
   }
 
   /* ---------------------- Hero Slider ---------------------- */
@@ -590,8 +671,12 @@
 
   /* ---------------------- Инициализация ---------------------- */
   function init() {
+    applyTheme(localStorage.getItem("vo_theme") || "light");
     initObserver();
     wireEvents();
+    applyStaticI18n(document);
+    updateLangBtn();
+    renderHeaderBits();
     updateBadges();
     route();
     observeReveals(document);

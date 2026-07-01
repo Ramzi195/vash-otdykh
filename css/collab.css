@@ -91,38 +91,42 @@
   border-radius: 980px;
 }
 
-/* --- Факты --- */
+/* --- Факты (карточки с иконками) --- */
 .collab-facts {
-  display: flex;
-  gap: 0;
-  background: var(--bg-2);
-  border-radius: 20px;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
 }
 .collab-fact {
-  flex: 1;
-  text-align: center;
-  padding: 28px 16px;
-  border-right: 1px solid var(--sep);
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 20px;
+  background: var(--surface);
+  border: 1px solid var(--sep);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform .22s var(--spring), box-shadow .22s;
 }
-.collab-fact:last-child { border-right: none; }
-.collab-fact strong {
-  font-size: clamp(30px, 5vw, 48px);
-  font-weight: 800;
+.collab-fact:hover { transform: translateY(-3px); box-shadow: var(--shadow-float); }
+.cf-ic {
+  flex-shrink: 0;
+  width: 46px; height: 46px;
+  border-radius: 13px;
+  display: grid; place-items: center;
+  background: var(--green-pale);
   color: var(--green);
-  letter-spacing: -.02em;
 }
-.collab-fact span {
-  font-size: 13px;
+.cf-tx { display: flex; flex-direction: column; gap: 2px; }
+.cf-tx strong {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--label);
+  letter-spacing: -.01em;
+  line-height: 1.2;
+}
+.cf-tx span {
+  font-size: 12.5px;
   color: var(--label-2);
   font-weight: 500;
-}
-
-@media (max-width: 520px) {
-  .collab-facts { flex-direction: column; }
-  .collab-fact { border-right: none; border-bottom: 1px solid var(--sep); }
-  .collab-fact:last-child { border-bottom: none; }
 }

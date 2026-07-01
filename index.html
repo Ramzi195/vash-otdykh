@@ -15,9 +15,9 @@
   <div id="intro">
     <div class="intro-inner">
       <div class="intro-logo-wrap">
-        <img src="assets/logo-hero.svg" class="intro-logo" id="introLogo" alt="Ваш отдых" />
+        <img src="images/logo-hero.jpg" class="intro-logo" id="introLogo" alt="Ваш отдых" />
       </div>
-      <div class="intro-hint">Нажмите на лого</div>
+      <div class="intro-hint" data-i18n="intro.hint">Нажмите на лого</div>
     </div>
   </div>
 
@@ -26,17 +26,19 @@
     <div class="nav-inner">
       <a href="#home" class="brand" data-nav="home">
         <img src="images/logo-badge.jpg" alt="Ваш отдых" />
-        <span class="tx">Ваш отдых<span>Грозный</span></span>
+        <span class="tx">Ваш отдых<span data-i18n="brand.city">Грозный</span></span>
       </a>
 
       <nav class="nav-links" id="navLinks">
-        <a class="nav-link" href="#home"    data-nav="home">Главная</a>
-        <a class="nav-link" href="#catalog" data-nav="catalog">Каталог</a>
-        <a class="nav-link" href="#collab"  data-nav="collab">Сотрудничество</a>
-        <a class="nav-link" href="#about"   data-nav="about">О нас</a>
+        <a class="nav-link" href="#home"    data-nav="home" data-i18n="nav.home">Главная</a>
+        <a class="nav-link" href="#catalog" data-nav="catalog" data-i18n="nav.catalog">Каталог</a>
+        <a class="nav-link" href="#collab"  data-nav="collab" data-i18n="nav.collab">Сотрудничество</a>
+        <a class="nav-link" href="#about"   data-nav="about" data-i18n="nav.about">О нас</a>
       </nav>
 
       <div class="nav-tools">
+        <button class="icon-btn lang-btn" id="langBtn" title="Язык / Language"><span id="langTag">RU</span></button>
+        <button class="icon-btn" id="themeBtn" title="Тема оформления" aria-label="Тема"></button>
         <button class="icon-btn" id="searchBtn" title="Поиск">
           <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -75,12 +77,12 @@
         <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
-    <a href="#home"    data-nav="home">Главная</a>
-    <a href="#catalog" data-nav="catalog">Каталог</a>
-    <a href="#collab"  data-nav="collab">Сотрудничество</a>
-    <a href="#about"   data-nav="about">О нас</a>
-    <a href="#fav"     data-nav="fav">Избранное</a>
-    <a href="#cart"    data-nav="cart">Корзина</a>
+    <a href="#home"    data-nav="home" data-i18n="nav.home">Главная</a>
+    <a href="#catalog" data-nav="catalog" data-i18n="nav.catalog">Каталог</a>
+    <a href="#collab"  data-nav="collab" data-i18n="nav.collab">Сотрудничество</a>
+    <a href="#about"   data-nav="about" data-i18n="nav.about">О нас</a>
+    <a href="#fav"     data-nav="fav" data-i18n="nav.fav">Избранное</a>
+    <a href="#cart"    data-nav="cart" data-i18n="nav.cart">Корзина</a>
   </div>
 
   <!-- ===================== Поиск ===================== -->
@@ -99,7 +101,7 @@
             <line x1="16.5" y1="16.5" x2="21.5" y2="21.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
           </svg>
         </span>
-        <input type="text" class="search-input" id="searchInput" placeholder="Поиск товаров…" />
+        <input type="text" class="search-input" id="searchInput" data-i18n-ph="search.ph" placeholder="Поиск товаров…" />
       </div>
       <div class="search-results" id="searchResults"></div>
     </div>
@@ -113,12 +115,12 @@
       <div class="hero">
         <div class="container hero-grid">
           <div>
-            <div class="hero-motto">Ваш отдых — наша забота</div>
-            <h1>Всё для <span class="accent">отдыха и жизни</span> с удовольствием</h1>
-            <p>Мангалы и грили, казаны, чугунная посуда, ножи и клинки, самовары, садовая мебель, подарочные наборы — и многое другое в одном магазине в Грозном.</p>
+            <div class="hero-motto" data-i18n="hero.motto">Ваш отдых — наша забота</div>
+            <h1 data-i18n="hero.title">Всё для <span class="accent">отдыха и жизни</span> с удовольствием</h1>
+            <p data-i18n="hero.desc">Мангалы и грили, казаны, чугунная посуда, ножи и клинки, самовары, садовая мебель, подарочные наборы — и многое другое в одном магазине в Грозном.</p>
             <div class="hero-actions">
-              <a href="#catalog" class="btn lg">Смотреть каталог</a>
-              <a href="#about" class="btn outline lg">О магазине</a>
+              <a href="#catalog" class="btn lg" data-i18n="hero.btnCatalog">Смотреть каталог</a>
+              <a href="#about" class="btn outline lg" data-i18n="hero.btnAbout">О магазине</a>
             </div>
             <div class="hero-tags">
               <span class="hero-tag" id="tagAddr"></span>
@@ -127,24 +129,34 @@
           </div>
           <div class="hero-media">
             <div class="hero-slider" id="heroSlider">
-              <div class="hero-slide active" data-addr="Петропавловское шоссе, 10б">
+              <div class="hero-slide active">
                 <img src="images/store-petropavlovskoye.jpeg" alt="Магазин на Петропавловском шоссе" />
                 <div class="slide-overlay">
-                  <svg class="slide-arrow" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path class="arrow-curve" d="M20 20 C20 50 50 60 60 50" stroke="#E07A2C" stroke-width="3" stroke-linecap="round" fill="none"/>
-                    <path class="arrow-head" d="M55 44 L60 50 L66 44" stroke="#E07A2C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <svg class="slide-arrow" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="arrow-shaft" d="M24 12 C 4 44, 44 44, 60 74" stroke="#E07A2C" stroke-width="6" stroke-linecap="round"/>
+                    <path class="arrow-head" d="M44 66 L62 78 L70 58" stroke="#E07A2C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <div class="slide-addr">г. Грозный, ул. Петропавловское шоссе, 10б</div>
+                  <div class="slide-addr">
+                    <span class="slide-pin">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" fill="#E07A2C"/><circle cx="12" cy="10" r="2.6" fill="#fff"/></svg>
+                    </span>
+                    <span data-i18n="addr.petropavlovskoye">г. Грозный, ул. Петропавловское шоссе, 10б</span>
+                  </div>
                 </div>
               </div>
-              <div class="hero-slide" data-addr="Сайханова, 69">
+              <div class="hero-slide">
                 <img src="images/store-saikhanova.jpeg" alt="Магазин на Сайханова" />
                 <div class="slide-overlay">
-                  <svg class="slide-arrow" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path class="arrow-curve" d="M20 20 C20 50 50 60 60 50" stroke="#E07A2C" stroke-width="3" stroke-linecap="round" fill="none"/>
-                    <path class="arrow-head" d="M55 44 L60 50 L66 44" stroke="#E07A2C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <svg class="slide-arrow" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="arrow-shaft" d="M24 12 C 4 44, 44 44, 60 74" stroke="#E07A2C" stroke-width="6" stroke-linecap="round"/>
+                    <path class="arrow-head" d="M44 66 L62 78 L70 58" stroke="#E07A2C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <div class="slide-addr">г. Грозный, ул. Сайханова, 69</div>
+                  <div class="slide-addr">
+                    <span class="slide-pin">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" fill="#E07A2C"/><circle cx="12" cy="10" r="2.6" fill="#fff"/></svg>
+                    </span>
+                    <span data-i18n="addr.saikhanova">г. Грозный, ул. Сайханова, 69</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -158,7 +170,7 @@
 
       <section class="section alt">
         <div class="container">
-          <div class="section-head"><div><h2>Категории</h2></div></div>
+          <div class="section-head"><div><h2 data-i18n="home.categories">Категории</h2></div></div>
           <div class="cat-strip" id="catStrip"></div>
         </div>
       </section>
@@ -166,8 +178,8 @@
       <section class="section">
         <div class="container">
           <div class="section-head">
-            <div><h2>Хиты продаж</h2><div class="sub">Чаще всего выбирают</div></div>
-            <a href="#catalog" class="link-arrow">Все товары</a>
+            <div><h2 data-i18n="home.hits">Хиты продаж</h2><div class="sub" data-i18n="home.hitsSub">Чаще всего выбирают</div></div>
+            <a href="#catalog" class="link-arrow" data-i18n="home.allProducts">Все товары</a>
           </div>
           <div class="grid" id="gridHits"></div>
         </div>
@@ -175,19 +187,19 @@
 
       <section class="section alt">
         <div class="container">
-          <div class="section-head"><div><h2>Новинки</h2><div class="sub">Недавно в магазине</div></div></div>
+          <div class="section-head"><div><h2 data-i18n="home.new">Новинки</h2><div class="sub" data-i18n="home.newSub">Недавно в магазине</div></div></div>
           <div class="grid" id="gridNew"></div>
         </div>
       </section>
 
       <section class="section dark">
         <div class="container">
-          <div class="section-head"><div><h2 style="color:#fff">Почему «Ваш отдых»</h2></div></div>
+          <div class="section-head"><div><h2 style="color:#fff" data-i18n="home.why">Почему «Ваш отдых»</h2></div></div>
           <div class="benefits">
-            <div class="benefit"><div class="ic" id="benIco1"></div><h4>Проверено лично</h4><p>Подбираем товар сами, продаём то, что не стыдно поставить у себя на даче</p></div>
-            <div class="benefit"><div class="ic" id="benIco2"></div><h4>Самовывоз и доставка</h4><p>Заберите в магазине в Грозном или согласуем доставку по городу</p></div>
-            <div class="benefit"><div class="ic" id="benIco3"></div><h4>Поможем с выбором</h4><p>Ответим на вопросы и подскажем подходящий вариант в WhatsApp</p></div>
-            <div class="benefit"><div class="ic" id="benIco4"></div><h4>Открыты ежедневно</h4><p>Заходите в удобное время — мы почти всегда на месте</p></div>
+            <div class="benefit"><div class="ic" id="benIco1"></div><h4 data-i18n="ben1.h">Проверено лично</h4><p data-i18n="ben1.p">Подбираем товар сами, продаём то, что не стыдно поставить у себя на даче</p></div>
+            <div class="benefit"><div class="ic" id="benIco2"></div><h4 data-i18n="ben2.h">Самовывоз и доставка</h4><p data-i18n="ben2.p">Заберите в магазине в Грозном или согласуем доставку по городу</p></div>
+            <div class="benefit"><div class="ic" id="benIco3"></div><h4 data-i18n="ben3.h">Поможем с выбором</h4><p data-i18n="ben3.p">Ответим на вопросы и подскажем подходящий вариант в WhatsApp</p></div>
+            <div class="benefit"><div class="ic" id="benIco4"></div><h4 data-i18n="ben4.h">Открыты ежедневно</h4><p data-i18n="ben4.p">Заходите в удобное время — мы почти всегда на месте</p></div>
           </div>
         </div>
       </section>
@@ -197,15 +209,15 @@
     <section class="view" id="view-catalog">
       <div class="container section">
         <div class="section-head">
-          <div><h2>Каталог</h2><div class="sub" id="catalogCount"></div></div>
+          <div><h2 data-i18n="catalog.title">Каталог</h2><div class="sub" id="catalogCount"></div></div>
         </div>
         <div class="catalog-bar">
           <div class="filter-pills" id="filterPills"></div>
           <select class="select" id="sortSelect">
-            <option value="popular">Популярные</option>
-            <option value="cheap">Сначала дешёвые</option>
-            <option value="expensive">Сначала дорогие</option>
-            <option value="rating">По рейтингу</option>
+            <option value="popular" data-i18n="sort.popular">Популярные</option>
+            <option value="cheap" data-i18n="sort.cheap">Сначала дешёвые</option>
+            <option value="expensive" data-i18n="sort.expensive">Сначала дорогие</option>
+            <option value="rating" data-i18n="sort.rating">По рейтингу</option>
           </select>
         </div>
         <div class="grid" id="gridCatalog"></div>
@@ -217,7 +229,7 @@
       <div class="container">
         <div class="pd" id="pdContent"></div>
         <section class="section">
-          <div class="section-head"><div><h2>Похожие товары</h2></div></div>
+          <div class="section-head"><div><h2 data-i18n="home.related">Похожие товары</h2></div></div>
           <div class="grid" id="gridRelated"></div>
         </section>
       </div>
@@ -226,7 +238,7 @@
     <!-- Избранное -->
     <section class="view" id="view-fav">
       <div class="container section">
-        <div class="section-head"><div><h2>Избранное</h2></div></div>
+        <div class="section-head"><div><h2 data-i18n="nav.fav">Избранное</h2></div></div>
         <div id="favBody"></div>
       </div>
     </section>
@@ -234,7 +246,7 @@
     <!-- Корзина -->
     <section class="view" id="view-cart">
       <div class="container section">
-        <div class="section-head"><div><h2>Корзина</h2></div></div>
+        <div class="section-head"><div><h2 data-i18n="cart.title">Корзина</h2></div></div>
         <div id="cartBody"></div>
       </div>
     </section>
@@ -242,15 +254,15 @@
     <!-- О нас -->
     <section class="view" id="view-about">
       <div class="container section">
-        <div class="section-head"><div><h2>О магазине</h2></div></div>
+        <div class="section-head"><div><h2 data-i18n="about.title">О магазине</h2></div></div>
         <div class="about-wrap">
           <div class="about-text">
-            <p><strong>«Ваш отдых»</strong> — магазин для тех, кто любит готовить, принимать гостей, охотиться, рыбачить и просто жить в своё удовольствие. Мы работаем с <strong>2013 года</strong> и за это время помогли тысячам семей по всей России найти нужные товары.</p>
-            <p>В нашем ассортименте — мангалы и грили, казаны и чугунная посуда, ножи и клинки кизлярских мастеров, самовары от классических дровяных до больших турецких, садовая мебель из ротанга, фирменные подарочные наборы для шашлыка и стейки из мраморной говядины.</p>
-            <h3>Почему выбирают нас</h3>
-            <p>Каждый товар мы проверяем лично. Если сомневаетесь с выбором — звоните или пишите в WhatsApp, подскажем лучший вариант под ваши задачи. <strong>Доставляем по всей России.</strong></p>
-            <p>Два магазина в Грозном — можно посмотреть и забрать лично в любой день с 9:00 до 19:00.</p>
-            <p style="margin-top:16px;font-weight:700;color:var(--green-2);font-size:18px;font-style:italic">"Ваш отдых — наша забота"</p>
+            <p data-i18n="about.p1"><strong>«Ваш отдых»</strong> — магазин для тех, кто любит готовить, принимать гостей, охотиться, рыбачить и просто жить в своё удовольствие. Мы работаем с <strong>2013 года</strong> и за это время помогли тысячам семей по всей России найти нужные товары.</p>
+            <p data-i18n="about.p2">В нашем ассортименте — мангалы и грили, казаны и чугунная посуда, ножи и клинки кизлярских мастеров, самовары от классических дровяных до больших турецких, садовая мебель из ротанга, фирменные подарочные наборы для шашлыка и стейки из мраморной говядины.</p>
+            <h3 data-i18n="about.whyH">Почему выбирают нас</h3>
+            <p data-i18n="about.p3">Каждый товар мы проверяем лично. Если сомневаетесь с выбором — звоните или пишите в WhatsApp, подскажем лучший вариант под ваши задачи. <strong>Доставляем по всей России.</strong></p>
+            <p data-i18n="about.p4">Два магазина в Грозном — можно посмотреть и забрать лично в любой день с 9:00 до 19:00.</p>
+            <p data-i18n="about.motto" style="margin-top:16px;font-weight:700;color:var(--green-2);font-size:18px;font-style:italic">"Ваш отдых — наша забота"</p>
           </div>
           <div class="contact-card">
             <div id="aboutContacts"></div>
@@ -264,8 +276,8 @@
       <div class="container section">
         <div class="section-head">
           <div>
-            <h2>Сотрудничество</h2>
-            <div class="sub">Открыты для партнёрства и оптовых заказов</div>
+            <h2 data-i18n="collab.title">Сотрудничество</h2>
+            <div class="sub" data-i18n="collab.sub">Открыты для партнёрства и оптовых заказов</div>
           </div>
         </div>
         <div id="collabBody"></div>
@@ -283,32 +295,32 @@
             <img src="images/logo-badge.jpg" alt="Ваш отдых" />
             <span class="tx">Ваш отдых</span>
           </div>
-          <p class="brand-desc">Мангалы, казаны, ножи, самовары, садовая мебель и многое другое. Грозный.</p>
+          <p class="brand-desc" data-i18n="footer.brandDesc">Мангалы, казаны, ножи, самовары, садовая мебель и многое другое. Грозный.</p>
         </div>
         <div>
-          <h5>Магазин</h5>
+          <h5 data-i18n="footer.shop">Магазин</h5>
           <ul>
-            <li><a href="#catalog">Каталог</a></li>
-            <li><a href="#fav">Избранное</a></li>
-            <li><a href="#cart">Корзина</a></li>
+            <li><a href="#catalog" data-i18n="nav.catalog">Каталог</a></li>
+            <li><a href="#fav" data-i18n="nav.fav">Избранное</a></li>
+            <li><a href="#cart" data-i18n="nav.cart">Корзина</a></li>
           </ul>
         </div>
         <div>
-          <h5>Информация</h5>
+          <h5 data-i18n="footer.info">Информация</h5>
           <ul>
-            <li><a href="#about">О нас</a></li>
-            <li><a href="#collab">Сотрудничество</a></li>
-            <li><a href="#about">Контакты</a></li>
+            <li><a href="#about" data-i18n="footer.about">О нас</a></li>
+            <li><a href="#collab" data-i18n="nav.collab">Сотрудничество</a></li>
+            <li><a href="#about" data-i18n="footer.contacts">Контакты</a></li>
           </ul>
         </div>
         <div>
-          <h5>Контакты</h5>
+          <h5 data-i18n="footer.contacts">Контакты</h5>
           <ul id="footContacts"></ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 Ваш отдых, Грозный</span>
-        <span>Сделано с заботой о деталях</span>
+        <span data-i18n="footer.copyright">© 2026 Ваш отдых, Грозный</span>
+        <span data-i18n="footer.made">Сделано с заботой о деталях</span>
       </div>
     </div>
   </footer>
@@ -318,19 +330,7 @@
   <script src="js/config.js"></script>
   <script src="js/products.js"></script>
   <script src="js/icons.js"></script>
+  <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const addr = document.getElementById("tagAddr");
-      const hrs  = document.getElementById("tagHours");
-      if (addr) addr.innerHTML = icon("map-pin", 14) + " Грозный — два магазина";
-      if (hrs)  hrs.innerHTML  = icon("clock", 14) + " " + SHOP_CONFIG.hours;
-      const fc = document.getElementById("footContacts");
-      if (fc) fc.innerHTML = `
-        <li><a href="tel:+${SHOP_CONFIG.phone}">${SHOP_CONFIG.phoneFmt}</a></li>
-        <li><a href="mailto:${SHOP_CONFIG.email}">${SHOP_CONFIG.email}</a></li>
-        <li><a href="${SHOP_CONFIG.socials.instagram}" target="_blank" rel="noopener">@${SHOP_CONFIG.instagram}</a></li>`;
-    });
-  </script>
 </body>
 </html>

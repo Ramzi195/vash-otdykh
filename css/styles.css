@@ -615,6 +615,16 @@ img { max-width: 100%; display: block; }
 .mmenu.open { transform: translateX(0); }
 .mmenu a { font-size: 19px; font-weight: 700; padding: 14px 4px; border-bottom: 1px solid var(--sep); display: flex; align-items: center; gap: 10px; }
 .mmenu-close { position: absolute; top: 18px; right: 20px; width: 34px; height: 34px; border-radius: var(--r-full); background: var(--bg-3); display: flex; align-items: center; justify-content: center; color: var(--label-2); }
+.mmenu-tools { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+.mmenu-tool {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 16px; font-weight: 700; color: var(--label);
+  padding: 14px 16px; border-radius: var(--r-md);
+  background: var(--bg-2); border: 1px solid var(--sep);
+}
+.mmenu-tool:active { transform: scale(.98); }
+.mmenu-tool svg, .mmenu-tool #mThemeIco { color: var(--green-2); display: inline-flex; }
+.mmenu-tool b { color: var(--ember-2); }
 
 /* ======================== Футер ======================== */
 
@@ -632,6 +642,8 @@ img { max-width: 100%; display: block; }
 @media (max-width: 880px) {
   .nav-links { display: none; }
   .burger { display: flex; }
+  /* Переключатели языка/темы уезжают в мобильное меню, чтобы шапка не переполнялась */
+  #langBtn, #themeBtn { display: none; }
   .hero-grid { grid-template-columns: 1fr; }
   .hero-media { order: -1; aspect-ratio: 16/9; }
   .cart-wrap { grid-template-columns: 1fr; }
@@ -643,7 +655,37 @@ img { max-width: 100%; display: block; }
 }
 @media (max-width: 520px) {
   .footer-cols { grid-template-columns: 1fr; }
-  .grid { grid-template-columns: repeat(auto-fill, minmax(156px, 1fr)); gap: 12px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
   .card-body { padding: 11px 12px 14px; }
-  .hero { padding: 40px 0 32px; }
+  .hero { padding: 34px 0 30px; }
+  .section { padding: 38px 0; }
+
+  /* Более крупный текст заголовка не нужен — читаемость важнее «вау» */
+  .hero h1 { font-size: clamp(27px, 8vw, 34px); }
+  .hero p { font-size: 15.5px; margin: 14px 0 22px; }
+  .hero-motto { font-size: 12px; margin-bottom: 10px; }
+
+  /* Кнопки на всю ширину — удобно нажимать пальцем */
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { width: 100%; }
+
+  /* iOS не зумит поля ввода при фокусе, если шрифт ≥16px */
+  .order-form input, .order-form textarea, .search-input { font-size: 16px; }
+
+  .section-head { flex-wrap: wrap; }
+  .section-head h2 { font-size: clamp(21px, 6.4vw, 28px); }
+
+  .cart-item { grid-template-columns: 62px 1fr auto; gap: 11px; }
+  .cart-item .thumb { width: 62px; height: 62px; }
+
+  .slide-arrow { width: 52px; height: 44px; }
+  .slide-overlay { padding: 30px 14px 14px; }
+
+  .collab-card { padding: 20px 18px; }
+}
+@media (max-width: 360px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+  .nav-tools { gap: 2px; }
+  .icon-btn { width: 36px; height: 36px; }
+  .brand .tx { font-size: 15px; }
 }

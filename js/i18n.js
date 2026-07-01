@@ -145,6 +145,10 @@ const I18N = {
     "footer.copyright": "© 2026 Ваш отдых, Грозный",
     "footer.made": "Сделано с заботой о деталях",
 
+    /* --- Мобильное меню --- */
+    "menu.lang": "Язык",
+    "menu.theme": "Тема",
+
     /* --- Тосты --- */
     "toast.addCart": "Добавлено в корзину",
     "toast.rmCart": "Удалено из корзины",
@@ -301,6 +305,10 @@ const I18N = {
     "footer.about": "About",
     "footer.copyright": "© 2026 Vash Otdykh, Grozny",
     "footer.made": "Made with care for detail",
+
+    /* --- Mobile menu --- */
+    "menu.lang": "Language",
+    "menu.theme": "Theme",
 
     /* --- Toasts --- */
     "toast.addCart": "Added to cart",

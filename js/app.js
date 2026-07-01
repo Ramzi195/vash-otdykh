@@ -600,6 +600,8 @@
     $("#mmenuClose").addEventListener("click", closeMenu);
     $("#langBtn").addEventListener("click", toggleLang);
     $("#themeBtn").addEventListener("click", toggleTheme);
+    $("#mLangBtn").addEventListener("click", toggleLang);
+    $("#mThemeBtn").addEventListener("click", toggleTheme);
     window.addEventListener("hashchange", route);
   }
 
@@ -611,8 +613,11 @@
     const th = theme === "dark" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", th);
     localStorage.setItem("vo_theme", th);
+    const ico = th === "dark" ? SUN_ICON : MOON_ICON;
     const b = $("#themeBtn");
-    if (b) b.innerHTML = th === "dark" ? SUN_ICON : MOON_ICON;
+    if (b) b.innerHTML = ico;
+    const mIco = $("#mThemeIco");
+    if (mIco) mIco.innerHTML = ico;
   }
   function toggleTheme() {
     const cur = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
@@ -621,8 +626,11 @@
 
   /* ---------------------- Язык (RU/EN) ---------------------- */
   function updateLangBtn() {
+    const code = getLang() === "en" ? "EN" : "RU";
     const tag = $("#langTag");
-    if (tag) tag.textContent = getLang() === "en" ? "EN" : "RU";
+    if (tag) tag.textContent = code;
+    const mTag = $("#mLangTag");
+    if (mTag) mTag.textContent = code;
   }
   function renderHeaderBits() {
     const addr = $("#tagAddr"), hrs = $("#tagHours");

@@ -12,6 +12,9 @@ const CATEGORIES = [
   { id: "grills",    name: "Мангалы и грили" },
   { id: "furniture", name: "Садовая мебель" },
   { id: "samovars",  name: "Самовары" },
+  { id: "kazany",    name: "Казаны" },
+  { id: "castiron",  name: "Чугунная посуда" },
+  { id: "knives",    name: "Ножи и клинки" },
   { id: "giftsets",  name: "Наборы для пикника" },
   { id: "drinks",    name: "Напитки" },
   { id: "steaks",    name: "Стейки" },
@@ -281,5 +284,88 @@ const PRODUCTS = [
     price: null, priceNote: "цена за кг — уточняйте",
     img: "images/steak-tbone.jpg", pos: "center 50%",
     badge: null, rating: 4.8,
+  },
+
+  /* --- Казаны --- */
+  {
+    id: "kazan-turkish-25l", cat: "kazany", name: "Казан-скороварка турецкая 25л",
+    desc: "Традиционный турецкий казан-скороварка с чугунной крышкой и нержавеющим корпусом 25 литров. Идеален для плова, тушения мяса и приготовления супов.",
+    price: null, priceNote: "узнать цену", img: "images/kazan-01.jpg", pos: "center 40%", badge: "hit", rating: 4.9,
+  },
+  {
+    id: "kazan-turkish-50l", cat: "kazany", name: "Казан-скороварка турецкая 50л",
+    desc: "Большой турецкий казан-скороварка 50 литров для больших компаний. Двойная крышка с клапаном безопасности, нержавеющая чаша.",
+    price: null, priceNote: "узнать цену", img: "images/kazan-02.jpg", pos: "center 40%", badge: "new", rating: 4.8,
+  },
+
+  /* --- Чугунная посуда --- */
+  {
+    id: "cast-iron-set-3", cat: "castiron", name: "Набор чугунных сковородок 3 шт",
+    desc: "Комплект из трёх чугунных сковородок разного диаметра: гриль-сковорода с рёбрами, блинница и универсальная. Деревянные ручки.",
+    price: null, priceNote: "узнать цену", img: "images/cast-iron-set-01.jpg", pos: "center 40%", badge: "hit", rating: 4.8,
+  },
+  {
+    id: "cast-iron-grill-pan", cat: "castiron", name: "Сковорода-гриль чугунная 28см",
+    desc: "Круглая чугунная сковорода-гриль с диагональными рёбрами. Даёт красивый рисунок на мясе, равномерно распределяет жар.",
+    price: null, priceNote: "узнать цену", img: "images/cast-iron-grill-01.jpg", pos: "center 40%", badge: null, rating: 4.7,
+  },
+  {
+    id: "cast-iron-napoleon", cat: "castiron", name: "Сковорода Napoleon чугунная",
+    desc: "Оригинальная чугунная сковорода Napoleon. Совместима с газовыми, электрическими и индукционными плитами.",
+    price: null, priceNote: "узнать цену", img: "images/cast-iron-napoleon-01.jpg", pos: "center 40%", badge: "new", rating: 4.9,
+  },
+  {
+    id: "cast-iron-skillet", cat: "castiron", name: "Чугунная сковорода с деревянной ручкой",
+    desc: "Классическая чугунная сковорода с деревянной съёмной ручкой. Подходит для стейков, яичницы, выпечки. Диаметр 26 см.",
+    price: null, priceNote: "узнать цену", img: "images/cast-iron-skillet-01.jpg", pos: "center 50%", badge: null, rating: 4.6,
+  },
+
+  /* --- Ножи и клинки --- */
+  {
+    id: "knife-kizlyar-dagestan", cat: "knives", name: "Кизлярский нож «Дагестан»",
+    desc: "Традиционный кизлярский нож ручной работы с кожаными ножнами. Клинок из высокоуглеродистой стали, рукоять из натуральной кожи с декором.",
+    price: null, priceNote: "узнать цену", img: "images/knife-kizlyar-01.jpg", pos: "center 45%", badge: "hit", rating: 4.9,
+  },
+  {
+    id: "knife-hunting-set", cat: "knives", name: "Набор охотничьих ножей 4 шт",
+    desc: "Комплект из 4 охотничьих ножей с деревянными рукоятями на подставке. Ручная ковка, высококачественная сталь.",
+    price: null, priceNote: "узнать цену", img: "images/knife-hunting-01.jpg", pos: "center 40%", badge: "new", rating: 4.8,
+  },
+  {
+    id: "knife-pchak-uzbek", cat: "knives", name: "Пчак узбекский",
+    desc: "Традиционный узбекский нож-пчак с характерным клинком и расписной рукоятью. Идеален для разделки мяса и нарезки овощей.",
+    price: null, priceNote: "узнать цену", img: "images/knife-pchak-01.jpg", pos: "center 40%", badge: null, rating: 4.7,
+  },
+  {
+    id: "knife-cleaver-steel", cat: "knives", name: "Тяпка для мяса кованая",
+    desc: "Стальная кованая тяпка-тесак для разделки мяса. Увесистый клинок из закалённой стали, эргономичная рукоять.",
+    price: null, priceNote: "узнать цену", img: "images/knife-cleaver-01.jpg", pos: "center 40%", badge: null, rating: 4.7,
+  },
+  {
+    id: "knife-katana-decorative", cat: "knives", name: "Катана декоративная на подставке",
+    desc: "Декоративная японская катана на деревянной подставке. Металлический клинок с гравировкой, традиционная обмотка. Отличный подарок.",
+    price: null, priceNote: "узнать цену", img: "images/knife-katana-01.jpg", pos: "center 40%", badge: null, rating: 4.6,
+  },
+  {
+    id: "knife-axe-tactical", cat: "knives", name: "Топор туристический",
+    desc: "Прочный туристический топор для кемпинга, охоты и заготовки дров. Острое лезвие из инструментальной стали.",
+    price: null, priceNote: "узнать цену", img: "images/knife-axe-01.jpg", pos: "center 40%", badge: null, rating: 4.5,
+  },
+
+  /* --- Новые наборы для пикника --- */
+  {
+    id: "giftset-bbq-premium", cat: "giftsets", name: "Набор для шашлыка «Премиум» в кейсе",
+    desc: "Роскошный набор в кожаном кейсе: 6 шампуров с деревянными рукоятками, кизлярский нож, 6 рюмок из нержавейки. Отличный подарок.",
+    price: null, priceNote: "узнать цену", img: "images/giftset-new-01.jpg", pos: "center 30%", badge: "hit", rating: 4.9,
+  },
+  {
+    id: "giftset-bbq-deluxe", cat: "giftsets", name: "Набор для шашлыка «Deluxe» с флягой",
+    desc: "Подарочный набор «Deluxe» в тёмно-коричневом кейсе: шампура, нож, тяпка, фляга, рюмки, зажигалка.",
+    price: null, priceNote: "узнать цену", img: "images/giftset-new-03.jpg", pos: "center 35%", badge: "new", rating: 4.8,
+  },
+  {
+    id: "giftset-bbq-complete", cat: "giftsets", name: "Набор для шашлыка полный в чемодане",
+    desc: "Полный набор в большом кожаном чемодане: шампура, рюмки, термос, приборы, нож, фляга. Для настоящих посиделок.",
+    price: null, priceNote: "узнать цену", img: "images/giftset-new-04.jpg", pos: "center 30%", badge: null, rating: 4.7,
   },
 ];

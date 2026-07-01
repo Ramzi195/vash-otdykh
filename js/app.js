@@ -569,6 +569,25 @@
     window.addEventListener("hashchange", route);
   }
 
+  /* ---------------------- Hero Slider ---------------------- */
+  function initHeroSlider() {
+    const slides = document.querySelectorAll(".hero-slide");
+    const dots   = document.querySelectorAll(".slider-dots .dot");
+    if (!slides.length) return;
+    let current = 0;
+
+    function goTo(idx) {
+      slides[current].classList.remove("active");
+      dots[current] && dots[current].classList.remove("active");
+      current = idx;
+      slides[current].classList.add("active");
+      dots[current] && dots[current].classList.add("active");
+    }
+
+    dots.forEach(dot => dot.addEventListener("click", () => goTo(+dot.dataset.idx)));
+    setInterval(() => goTo((current + 1) % slides.length), 2800);
+  }
+
   /* ---------------------- Инициализация ---------------------- */
   function init() {
     initObserver();
@@ -577,6 +596,7 @@
     route();
     observeReveals(document);
     playIntro();
+    initHeroSlider();
   }
 
   document.addEventListener("DOMContentLoaded", init);

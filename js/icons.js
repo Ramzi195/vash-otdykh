@@ -144,6 +144,20 @@ const ICONS = {
      <rect x="7.5" y="9.5" width="3.2" height="3.2" rx=".6" transform="rotate(45 9 11)" fill="currentColor" opacity=".85"/>
      <rect x="12.3" y="4.7" width="3.2" height="3.2" rx=".6" transform="rotate(45 14 6)" fill="currentColor" opacity=".85"/>
      <circle cx="20" cy="4" r="1.4" fill="currentColor"/>`,
+
+  kazan:
+    `<path d="M7 4h10M5 8h14c0 7-3 11-7 11S5 15 5 8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+     <line x1="9" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+     <path d="M10 2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+
+  castiron:
+    `<path d="M6 18h9a3 3 0 0 0 3-3v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+     <ellipse cx="15" cy="9" rx="4" ry="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+     <line x1="6" y1="18" x2="3" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+
+  knife:
+    `<path d="M3 21l11-11M14 10l6-7-7 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+     <path d="M3 21l4-1 8-8-3-3-8 8-1 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
 };
 
 /* ------------------------------------------------------------------ */
@@ -162,4 +176,7 @@ const CAT_ICON_MAP = {
   giftsets:   "gift-case",
   drinks:     "bottle",
   steaks:     "steak",
+  kazany:     "kazan",
+  castiron:   "castiron",
+  knives:     "knife",
 };

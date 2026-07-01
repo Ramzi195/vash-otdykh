@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ramzi195.github.io/vash-otdykh/sitemap.xml

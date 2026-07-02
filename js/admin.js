@@ -176,6 +176,43 @@ function fillCatSelect(selId, withAll = false) {
   if (cur) sel.value = cur;
 }
 
+/* ── Превью фото в форме ── */
+function setProductPreview(src) {
+  const pv = document.getElementById("pm-preview");
+  if (!pv) return;
+  if (src) { pv.src = src; pv.style.display = "block"; }
+  else { pv.removeAttribute("src"); pv.style.display = "none"; }
+}
+
+/* ── Выбор фото с устройства: уменьшаем и встраиваем как data-URL ── */
+function handleProductFile(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) { toast("Выберите файл изображения", "err"); return; }
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      const MAX = 900;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        const s = MAX / Math.max(w, h);
+        w = Math.round(w * s); h = Math.round(h * s);
+      }
+      const cv = document.createElement("canvas");
+      cv.width = w; cv.height = h;
+      cv.getContext("2d").drawImage(img, 0, 0, w, h);
+      const dataUrl = cv.toDataURL("image/jpeg", 0.82);
+      document.getElementById("pm-img").value = dataUrl;
+      setProductPreview(dataUrl);
+      toast("Фото загружено");
+    };
+    img.onerror = () => toast("Не удалось прочитать фото", "err");
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 /* ── Открыть форму добавления ── */
 function openAddProduct() {
   editProductId = null;
@@ -185,6 +222,8 @@ function openAddProduct() {
     if (el) el.value = "";
   });
   document.getElementById("pm-badge").value = "";
+  document.getElementById("pm-file").value = "";
+  setProductPreview("");
   fillCatSelect("pm-cat");
   openModal("prodModal");
 }
@@ -200,6 +239,8 @@ function openEditProduct(id) {
   document.getElementById("pm-desc").value      = p.desc || "";
   document.getElementById("pm-img").value       = p.img  || "";
   document.getElementById("pm-pos").value       = p.pos  || "";
+  document.getElementById("pm-file").value      = "";
+  setProductPreview(p.img || "");
   document.getElementById("pm-price").value     = p.price != null ? p.price : "";
   document.getElementById("pm-priceNote").value = p.priceNote || "";
   document.getElementById("pm-rating").value    = p.rating != null ? p.rating : "";
@@ -215,8 +256,10 @@ function saveProduct() {
   const id   = document.getElementById("pm-id").value.trim().replace(/\s+/g, "-");
   const cat  = document.getElementById("pm-cat").value;
   const desc = document.getElementById("pm-desc").value.trim();
+  const imgVal = document.getElementById("pm-img").value.trim();
 
   if (!name || !id || !cat || !desc) { toast("Заполните обязательные поля (*)", "err"); return; }
+  if (!imgVal) { toast("Добавьте фото товара", "err"); return; }
 
   /* Проверяем уникальность ID при добавлении */
   if (!editProductId && state.prods.find(p => p.id === id)) {
@@ -231,7 +274,7 @@ function saveProduct() {
     desc,
     price:     priceRaw !== "" ? parseFloat(priceRaw) : null,
     priceNote: document.getElementById("pm-priceNote").value.trim() || null,
-    img:       document.getElementById("pm-img").value.trim() || `images/${id}.jpg`,
+    img:       imgVal,
     pos:       document.getElementById("pm-pos").value.trim() || "center center",
     badge:     document.getElementById("pm-badge").value || null,
     rating:    parseFloat(document.getElementById("pm-rating").value) || 4.5,
@@ -555,6 +598,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("prodFilterCat").addEventListener("change", filterProducts);
   document.getElementById("prodModalSave").addEventListener("click", saveProduct);
   document.getElementById("prodModalClose").addEventListener("click", () => closeModal("prodModal"));
+  document.getElementById("pm-file").addEventListener("change", handleProductFile);
 
   /* Категории */
   document.getElementById("addCatBtn").addEventListener("click", openAddCat);

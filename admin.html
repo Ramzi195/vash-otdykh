@@ -323,8 +323,11 @@
         <input class="a-input" id="pm-rating" type="number" min="1" max="5" step="0.1" placeholder="4.8" style="margin-bottom:0"/>
       </div>
       <div class="a-form-group">
-        <label class="a-label">Файл фото (images/…)</label>
-        <input class="a-input" id="pm-img" placeholder="images/grill-mangal-roof.jpg" style="margin-bottom:0"/>
+        <label class="a-label">Фото товара *</label>
+        <input type="file" id="pm-file" accept="image/*" class="a-input" style="margin-bottom:8px"/>
+        <img id="pm-preview" alt="превью" style="display:none;max-width:100%;max-height:150px;border-radius:10px;margin-bottom:8px;border:1px solid #e0e0e0"/>
+        <input class="a-input" id="pm-img" placeholder="или путь к файлу: images/kazan-01.jpg" style="margin-bottom:4px"/>
+        <div style="font-size:12px;color:#999;line-height:1.4">Нажмите «Выбрать файл» и выберите фото с телефона или компьютера — оно вставится автоматически. Поле с путём заполнять вручную не нужно.</div>
       </div>
     </div>
 
